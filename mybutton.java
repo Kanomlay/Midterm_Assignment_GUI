@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.concurrent.Flow;
+
 import javax.swing.*;
 
 public class mybutton extends JPanel {
@@ -28,8 +30,11 @@ public class mybutton extends JPanel {
         button_2.setPreferredSize(new Dimension(100, 40));
         button_3.setPreferredSize(new Dimension(100, 40));
 
-        // Set layout manager
-        setLayout(new FlowLayout());
+       // Set layout manager
+       setLayout(null);
+       button_1.setBounds(30, 75, 150, 80);
+       button_2.setBounds(30, 175, 150, 80);
+       button_3.setBounds(30, 275, 150, 80); 
 
         // Add buttons to panel
         add(button_1);
