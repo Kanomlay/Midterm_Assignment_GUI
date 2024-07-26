@@ -9,14 +9,14 @@ public class Start_GUI_Color extends JPanel {
 
     public Start_GUI_Color() {
         setBackground(new Color(174, 214, 241)); // Set background color
-        button_rain = new JButton("Rain"); // Create button with label
+        button_rain = new JButton("artificial rain"); // Create button with label
         button_rain.setSize(100, 100); // Set button size
-        button_rain.setBounds(150, 700, 100, 50); // Set button position and size
+        button_rain.setBounds(150, 700, 150, 50); // Set button position and size
         button_rain.setBackground(new Color(133, 193, 233));
         button_rain.setForeground(Color.BLACK);
         Random_rain = new JButton("Random Rain"); // Create button with labe
         Random_rain.setSize(100, 100);
-        Random_rain.setBounds(300, 700, 125, 50); // Set button size
+        Random_rain.setBounds(350, 700, 125, 50); // Set button size
         Random_rain.setBackground(new Color(133, 193, 233));
         Random_rain.setForeground(Color.BLACK);
         setLayout(null); // Set layout to null for absolute positioning
