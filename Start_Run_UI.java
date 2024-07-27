@@ -1,16 +1,26 @@
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
 
-public class Start_Run_UI extends JFrame{
+public class Start_Run_UI extends JFrame {
+    
+    public Start_Run_UI() {
+        setTitle("PM 2.5 Data Buttons");
+        setSize(1000, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        Start_GUI_Color color_Background = new Start_GUI_Color();        
-        frame.setSize(1000, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("PM 2.5");
+        // Create panels
+        DataPanel dataPanel = new DataPanel();
+        ControlPanel controlPanel = new ControlPanel(); // Assuming ControlPanel is created as before
 
+        // Add panels to the frame
+        add(dataPanel, BorderLayout.WEST);
+        add(controlPanel, BorderLayout.SOUTH);
         
-        frame.add(color_Background);
-        frame.setVisible(true);
+        setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        new Start_Run_UI();
     }
 }
