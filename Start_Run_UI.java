@@ -11,7 +11,7 @@ public class Start_Run_UI extends JFrame {
 
         // Create panels
         DataPanel dataPanel = new DataPanel();
-        ControlPanel controlPanel = new ControlPanel(); // Assuming ControlPanel is created as before
+        ControlPanel controlPanel = new ControlPanel(dataPanel); // Assuming ControlPanel is created as before
 
         // Add panels to the frame
         add(dataPanel, BorderLayout.WEST);
