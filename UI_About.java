@@ -1,9 +1,8 @@
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.Border;
 public class UI_About extends JLabel{
     JLabel label_1;
@@ -16,7 +15,8 @@ public class UI_About extends JLabel{
     JPanel panel_Top;
     JPanel panel_Bottom;
 
-    public UI_About(){  
+    public UI_About(CardLayout cardLayout,JPanel mainpanel){  
+
         setLayout(null);
         label_1 = new JLabel("<html>Namgern<br>66011212232<br>นายกัญจน์ ธนมาลาพงศ์</html>");
         label_2 = new JLabel("<html>Kan<br>66011212006<br>นายกาญจน์ เจริญยุทธ</html>");
@@ -44,9 +44,14 @@ public class UI_About extends JLabel{
 
         panel_Top = new JPanel();
         panel_Top.setBounds(0, 0, 1000, 50);
+        panel_Top.setLayout(new BorderLayout());
         panel_Top.setPreferredSize(new Dimension(700, 50));
         panel_Top.setBorder(border);
         panel_Top.setBackground(getBackground());
+
+        JButton button_back = new JButton("Back");
+        button_back.setPreferredSize(new Dimension(80, 30));
+        panel_Top.add(button_back, BorderLayout.WEST);
 
         panel_Bottom = new JPanel();
         panel_Bottom.setBounds(0, 1000, 1000, 50);
@@ -91,13 +96,21 @@ public class UI_About extends JLabel{
         label_3.setVerticalAlignment(JLabel.CENTER);
         label_3.setHorizontalAlignment(JLabel.CENTER);
 
-
-
         // Add components to the panels
         add(panel_Top);
         add(label_1);
         add(label_2);
         add(label_3);
+        button_back.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                cardLayout.show(mainpanel, "Main menu");
+            }
+            
+        });
+        
     }
     public JLabel getLabel(){
         return label_1;

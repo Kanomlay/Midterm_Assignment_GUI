@@ -1,12 +1,14 @@
 import java.awt.*;
 import java.util.concurrent.Flow;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class mybutton extends JPanel {
     private RoundButton button_1;
     private RoundButton button_2;
     private RoundButton button_3;
+    private JLabel label;
 
     public mybutton() {
         // Set the background color of the panel
@@ -30,16 +32,23 @@ public class mybutton extends JPanel {
         button_2.setPreferredSize(new Dimension(100, 40));
         button_3.setPreferredSize(new Dimension(100, 40));
 
+        label = new JLabel("Pm 2.5");
+        label.setFont(new Font("Arial",Font.BOLD,40));
+        label.setForeground(Color.BLACK);
+        label.setBounds(600, 250, 200, 30);
+
+
        // Set layout manager
        setLayout(null);
-       button_1.setBounds(30, 75, 150, 80);
-       button_2.setBounds(30, 175, 150, 80);
-       button_3.setBounds(30, 275, 150, 80); 
+       button_1.setBounds(30, 100, 150, 80);
+       button_2.setBounds(30, 200, 150, 80);
+       button_3.setBounds(30, 300, 150, 80); 
 
         // Add buttons to panel
         add(button_1);
         add(button_2);
         add(button_3);
+        add(label);
     }
 
     public RoundButton getButton1() {
