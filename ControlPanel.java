@@ -1,18 +1,15 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 
 public class ControlPanel extends JPanel {
     private JButton button_rain;
     private JButton random_rain;
     private JButton back;
     private JButton add_files;
+
     public ControlPanel(DataPanel dataPanel) {
         setLayout(new GridLayout(1, 4, 10, 10)); // Layout with 1 row and 4 columns, with gaps
         setBackground(new Color(174, 214, 241)); // Set background color
@@ -43,7 +40,7 @@ public class ControlPanel extends JPanel {
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     Path filePath = fileChooser.getSelectedFile().toPath();
-                    dataPanel.loadDataFromFile(filePath); // Call the method on DataPanel instance
+                    dataPanel.loadDataFromFile(filePath);
                 }
             }
         });
