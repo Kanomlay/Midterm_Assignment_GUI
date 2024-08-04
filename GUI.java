@@ -1,27 +1,56 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class GUI {
+public class GUI extends JFrame{
+    private JPanel mainpanel;
+    private JPanel Aboutmenu;
+    private CardLayout cardLayout;
+    public GUI(){
+        cardLayout = new CardLayout();
+        mainpanel = new JPanel(cardLayout);
+
+        mybutton button = new mybutton();
+        UI_About about = new UI_About(cardLayout,mainpanel);
+
+        mainpanel.add(button,"Main menu");
+        mainpanel.add(about,"About");
+
+        cardLayout.show(mainpanel, "Main menu");
+
+        add(mainpanel);
+        setTitle("PM 2.5");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000,600);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        button.getButton2().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(mainpanel, "About");
+            }
+            
+        });
+        button.getButton3().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                System.exit(0);
+            }
+            
+        });
+    }
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Simple Calculator"); // Create a frame
-        frame.setTitle("GUI"); // Set the title
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exits on close
-        frame.setResizable(false); // Prevent frame from being resized
-        frame.setSize(700, 580); // Set the size of the frame
-        
-        // Set background color of the frame
-        //Color background = new Color(133, 193, 233);
-        //frame.getContentPane().setBackground(background); // Change background of the frame
-        
-        mybutton panel = new mybutton();
-        frame.add(panel);
-
-        JLabel label=new JLabel("PM 2.5");
-        label.setBounds(400, 220, 150, 30);
-        label.setFont(new Font("PM 2.5", Font.BOLD, 40));
-        panel.add(label);
-        
-        // Set the frame to be visible
-        frame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                new GUI();
+            }
+            
+        });
     }
 }
