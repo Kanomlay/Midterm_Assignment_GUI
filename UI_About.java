@@ -51,6 +51,7 @@ public class UI_About extends JLabel{
 
         JButton button_back = new JButton("Back");
         button_back.setPreferredSize(new Dimension(80, 30));
+        button_back.setBackground(new Color(133, 193, 233));
         panel_Top.add(button_back, BorderLayout.WEST);
 
         panel_Bottom = new JPanel();
