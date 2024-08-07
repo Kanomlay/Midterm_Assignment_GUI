@@ -7,12 +7,29 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DataPanel extends JPanel {
-    private JButton[][] buttons = new JButton[10][20];
-    private int[][] pm25Levels = new int[10][20];
+    private static final int WIDTH = 20;
+    private static final int HEIGHT = 10;
+    private JButton[][] buttons;
+    private int[][] pm25;
+    private int[][] populations;
+    private CalculateProcess frame;
 
-    public DataPanel() {
-        setBackground(new Color(174, 214, 241)); // Set background color
-        setLayout(new GridLayout(10, 20, 0, 0)); // 20 rows, 10 columns, no gaps
+    public DataPanel(int[][] pm25, JButton[][] buttons, int[][] populations, CalculateProcess frame) {
+        this.pm25 = pm25;
+        this.buttons = buttons;
+        this.populations = populations;
+        this.frame = frame;
+        setBackground(new Color(174, 214, 241)); 
+        setLayout(new GridLayout(10, 20, 0, 0));
+    }
+    
+    public void AddFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(frame);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            Path filePath = fileChooser.getSelectedFile().toPath();
+            loadDataFromFile(filePath);
+        }
     }
 
     public void loadDataFromFile(Path filePath) {
@@ -21,21 +38,22 @@ public class DataPanel extends JPanel {
             String line;
             int row = 0;
             while ((line = reader.readLine()) != null && row < 10) {
-                String[] values = line.split("\\s+"); // Split numbers by whitespace
+                String[] values = line.split("\\s+");
                 for (int col = 0; col < values.length && col < 20; col++) {
-                    pm25Levels[row][col] = Integer.parseInt(values[col]);
-                    JButton button = new JButton(); // Create button with the value
-                    button.setBackground(Utility.getColorForHealthRisk(Utility.getHealthyPopulation(pm25Levels[row][col]))); // Set button background color
-                    button.setPreferredSize(new Dimension(50, 30)); // Set button size
+                    pm25[row][col] = Integer.parseInt(values[col]);
+                    JButton button = new JButton();
+                    button.setBackground(Utility.getColorForHealthRisk(pm25[row][col])); // Set สีสำหรับแต่ละค่า PM2.5 ที่อ่านได้ตามระดับความเสี่ยงสุขภาพ
+                    button.setPreferredSize(new Dimension(50, 30));
                     buttons[row][col] = button;
-                    add(button); // Add button to panel
+                    button.addActionListener(new ButtonTarget(row, col, frame, buttons));
+                    add(button);
                 }
                 row++;
             }
         } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
+            System.out.println("IOException: " + e.getMessage());
         }
-        revalidate(); // Refresh the panel to reflect changes
-        repaint();    // Redraw the panel
+        revalidate(); // รีเฟรชพาเนล
+        repaint();    // วาดพาเนลใหม่
     }
 }

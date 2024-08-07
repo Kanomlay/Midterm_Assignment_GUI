@@ -9,10 +9,13 @@ public class ControlPanel extends JPanel {
     private JButton random_rain;
     private JButton back;
     private JButton add_files;
+    private CalculateProcess cal;
+    private DataPanel data;
 
-    public ControlPanel(DataPanel dataPanel) {
-        setLayout(new GridLayout(1, 4, 10, 10)); // Layout with 1 row and 4 columns, with gaps
-        setBackground(new Color(174, 214, 241)); // Set background color
+    public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
+        this.cal = cal;
+        setLayout(new GridLayout(1, 4, 10, 10));
+        setBackground(new Color(174, 214, 241));
 
         back = new JButton("BACK");
         back.setPreferredSize(new Dimension(100, 50));
@@ -23,11 +26,23 @@ public class ControlPanel extends JPanel {
         button_rain.setPreferredSize(new Dimension(150, 50));
         button_rain.setBackground(new Color(133, 193, 233));
         button_rain.setForeground(Color.BLACK);
+        button_rain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cal.useFonTaerm();
+            }
+        });
 
         random_rain = new JButton("Random Rain");
         random_rain.setPreferredSize(new Dimension(125, 50));
         random_rain.setBackground(new Color(133, 193, 233));
         random_rain.setForeground(Color.BLACK);
+        random_rain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cal.useFonJing();
+            }
+        });
 
         add_files = new JButton("Add Files");
         add_files.setPreferredSize(new Dimension(100, 50));
@@ -36,12 +51,7 @@ public class ControlPanel extends JPanel {
         add_files.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    Path filePath = fileChooser.getSelectedFile().toPath();
-                    dataPanel.loadDataFromFile(filePath);
-                }
+                cal.loadFile();
             }
         });
 
@@ -50,6 +60,7 @@ public class ControlPanel extends JPanel {
         add(random_rain);
         add(add_files);
     }
+
 
     public JButton getBack() {
         return back;

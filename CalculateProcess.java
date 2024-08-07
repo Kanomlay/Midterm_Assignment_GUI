@@ -12,10 +12,10 @@ public class CalculateProcess extends JFrame {
     private static final int HEIGHT = 10;
     private int[][] pm25Levels = new int[HEIGHT][WIDTH];
     private JButton[][] buttons = new JButton[HEIGHT][WIDTH];
+    private int[][] populations = new int[HEIGHT][WIDTH];
     private int targetRow = -1;
     private int targetCol = -1;
-    private DataPanel dataPanel;
-    private ControlPanel controlPanel;
+    DataPanel dataPanel;
 
     public CalculateProcess() {
         setTitle("PM 2.5");
@@ -24,15 +24,57 @@ public class CalculateProcess extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        dataPanel = new DataPanel();
+        dataPanel = new DataPanel(pm25Levels, buttons, populations, this);
         add(dataPanel, BorderLayout.WEST);
 
-        controlPanel = new ControlPanel(dataPanel);
+        ControlPanel controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
         add(controlPanel, BorderLayout.SOUTH);
 
         setVisible(true);
+
+        updateButtons();
+    }
+    
+    // อัพเดตปุ่ม
+    public void updateButtons() {
+        for (int row = 0; row < HEIGHT; row++) {
+            for (int col = 0; col < WIDTH; col++) {
+                JButton button = buttons[row][col];
+                int pm25 = pm25Levels[row][col];
+                int population = populations[row][col];
+                button.setBackground(Utility.getColorForHealthRisk(pm25));
+                button.setFont(new Font("Arial", Font.PLAIN, 7));
+            }
+        }
     }
 
+    // เลือกปุ่มเพื่อที่ให้ให้ฝนแบบไหนทำงานตามที่ผู้ใช้ต้องการ
+    public void setTarget(int row, int col) {
+        this.targetRow = row;
+        this.targetCol = col;
+        updateButtons();
+    }
+
+    // ฝนเทียม
+    public void useFonTaerm() {
+        if (targetRow != -1 && targetCol != -1) {
+            RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
+            updateButtons();
+        } else {
+        }
+    }
+
+    // ฝนตามธรรมชาติ
+    public void useFonJing() {
+        RainSimu.useNaturalRain(pm25Levels);
+        updateButtons();
+    }
+
+    public void loadFile() {
+        dataPanel.AddFile();
+    }
+
+    /////// Run Program Here /////////////
     public static void main(String[] args) {
         new CalculateProcess();
     }
