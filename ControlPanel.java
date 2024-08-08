@@ -13,6 +13,7 @@ public class ControlPanel extends JPanel {
     private DataPanel data;
 
     public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
+
         this.cal = cal;
         setLayout(new GridLayout(1, 4, 10, 10));
         setBackground(new Color(174, 214, 241));
@@ -21,6 +22,7 @@ public class ControlPanel extends JPanel {
         back.setPreferredSize(new Dimension(100, 50));
         back.setBackground(new Color(133, 193, 233));
         back.setForeground(Color.BLACK);
+        
 
         button_rain = new JButton("Artificial Rain");
         button_rain.setPreferredSize(new Dimension(150, 50));
@@ -77,4 +79,15 @@ public class ControlPanel extends JPanel {
     public JButton getAddFiles() {
         return add_files;
     }
+    /*public void setBackActionListener(CardLayout cardLayout,JPanel maiPanel){
+       getBack().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                cardLayout.show(maiPanel, "Main menu");
+            }
+            
+        });
+    }*/
 }

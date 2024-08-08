@@ -12,8 +12,11 @@ public class GUI extends JFrame{
 
         mybutton button = new mybutton();
         UI_About about = new UI_About(cardLayout,mainpanel);
+        CalculateProcess calculateProcess = new CalculateProcess();
+        calculateProcess.setBackActionListener(cardLayout, mainpanel);
 
         mainpanel.add(button,"Main menu");
+        mainpanel.add(calculateProcess,"calculateProcess");
         mainpanel.add(about,"About");
 
         cardLayout.show(mainpanel, "Main menu");
@@ -21,10 +24,18 @@ public class GUI extends JFrame{
         add(mainpanel);
         setTitle("PM 2.5");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000,600);
+        setSize(1500,800);
         setLocationRelativeTo(null);
         setVisible(true);
+        button.getButton1().addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                cardLayout.show(mainpanel, "calculateProcess");
+            }
+            
+        });
         button.getButton2().addActionListener(new ActionListener() {
 
             @Override

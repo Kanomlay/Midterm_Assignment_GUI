@@ -33,16 +33,16 @@ public class mybutton extends JPanel {
         button_3.setPreferredSize(new Dimension(100, 40));
 
         label = new JLabel("Pm 2.5");
-        label.setFont(new Font("Arial",Font.BOLD,40));
+        label.setFont(new Font("Arial",Font.BOLD,72));
         label.setForeground(Color.BLACK);
-        label.setBounds(600, 250, 200, 30);
+        label.setBounds(800, 300, 500, 100);
 
 
        // Set layout manager
        setLayout(null);
-       button_1.setBounds(30, 100, 150, 80);
-       button_2.setBounds(30, 200, 150, 80);
-       button_3.setBounds(30, 300, 150, 80); 
+       button_1.setBounds(30, 150, 200, 100);
+       button_2.setBounds(30, 300, 200, 100);
+       button_3.setBounds(30, 450, 200, 100); 
 
         // Add buttons to panel
         add(button_1);
