@@ -21,4 +21,28 @@ public class ButtonTarget implements ActionListener {
         cal.setTarget(row, col);
         cal.updateButtons();
     }
+}/*import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class ButtonTarget implements ActionListener {
+    private int row;
+    private int col;
+    private CalculateProcess frame;
+    private JButton[][] buttons;
+
+    public ButtonTarget(int row, int col, CalculateProcess frame, JButton[][] buttons) {
+        this.row = row;
+        this.col = col;
+        this.frame = frame;
+        this.buttons = buttons;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // กำหนดเป้าหมายที่ปุ่มนี้เมื่อถูกคลิก
+        frame.setTarget(row, col);
+    }
 }
+ */
