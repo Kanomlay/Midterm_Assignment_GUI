@@ -19,6 +19,10 @@ public class CalculateProcess extends JPanel {
     private int targetRow = -1;
     private int targetCol = -1;
     DataPanel dataPanel;
+
+    private String mode = "";
+    private boolean isArtificialRainMode = false;
+
     ControlPanel controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
     public CalculateProcess() {
         setLayout(new BorderLayout());
@@ -49,20 +53,36 @@ public class CalculateProcess extends JPanel {
     public void setTarget(int row, int col) {
         this.targetRow = row;
         this.targetCol = col;
-        updateButtons();
-    }
-
-    // ฝนเทียม
-    public void useFonTaerm() {
-        if (targetRow != -1 && targetCol != -1) {
+        if(mode.equals("ArtificialRain")){
+            if (targetRow != -1 && targetCol != -1) {
             RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
             updateButtons();
-        } else {
         }
+        }
+        //updateButtons();
+    }
+    public boolean isArtificialRainMode(){
+        return isArtificialRainMode;
+    }
+    public void toggleArtificialRainMode(){
+        this.isArtificialRainMode = !this.isArtificialRainMode;
+        if (!isArtificialRainMode) {
+            targetRow = -1; // ยกเลิกเป้าหมายเมื่อโหมดถูกปิด
+            targetCol = -1;
+            this.mode = "";
+            updateButtons(); // รีเฟรชปุ่มทั้งหมดเพื่อแสดงผลลัพธ์ที่เปลี่ยนแปลง
+        }
+
+    }
+    // ฝนเทียม
+    public void useFonTaerm() {
+        this.mode = "ArtificialRain";
     }
 
     // ฝนตามธรรมชาติ
     public void useFonJing() {
+        this.isArtificialRainMode = false;
+        this.mode = "NaturalRain";
         RainSimu.useNaturalRain(pm25Levels);
         updateButtons();
     }

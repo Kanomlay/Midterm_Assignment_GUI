@@ -30,8 +30,16 @@ public class ControlPanel extends JPanel {
         button_rain.setForeground(Color.BLACK);
         button_rain.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                cal.useFonTaerm();
+            public void actionPerformed(ActionEvent e) { 
+                cal.toggleArtificialRainMode();
+                if (cal.isArtificialRainMode()) {
+                    button_rain.setText("Exit Mode Artificial");
+                    cal.useFonTaerm();
+                }
+                else{
+                    button_rain.setText("Artificial Rain");
+                    cal.updateButtons();
+                }
             }
         });
 
