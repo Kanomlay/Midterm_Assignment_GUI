@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.Path;
 
 public class ControlPanel extends JPanel {
     private JButton button_rain;
@@ -10,22 +9,24 @@ public class ControlPanel extends JPanel {
     private JButton back;
     private JButton add_files;
     private JButton add_population;
+    private JTextField textField_1;
+    private JTextField textField_2;
     private CalculateProcess cal;
-    private DataPanel data;
-   /*private JTextField textField_1;
-    private JTextField textField_2;*/
-    public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
+    private Utility utility;
+    private int[][] pm25;
 
+    public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
         this.cal = cal;
-        
-        setLayout(new GridLayout(1, 5, 10, 10));
+        this.pm25 = pm25;
+        this.utility = new Utility();
+
+        setLayout(new GridLayout(1, 6, 10, 10));
         setBackground(new Color(174, 214, 241));
 
         back = new JButton("BACK");
         back.setPreferredSize(new Dimension(100, 50));
         back.setBackground(new Color(133, 193, 233));
         back.setForeground(Color.BLACK);
-        
 
         button_rain = new JButton("Artificial Rain");
         button_rain.setPreferredSize(new Dimension(150, 50));
@@ -40,8 +41,7 @@ public class ControlPanel extends JPanel {
                     button_rain.setBackground(new Color(169, 50, 38));
                     button_rain.setForeground(Color.WHITE);
                     cal.useFonTaerm();
-                }
-                else{
+                } else {
                     button_rain.setText("Artificial Rain");
                     button_rain.setBackground(new Color(133, 193, 233));
                     button_rain.setForeground(Color.BLACK);
@@ -71,29 +71,59 @@ public class ControlPanel extends JPanel {
                 cal.loadFile();
             }
         });
+
         add_population = new JButton("Add Population");
-        add_population.setPreferredSize(new Dimension(100 , 50));
+        add_population.setPreferredSize(new Dimension(100, 50));
         add_population.setBackground(new Color(133, 193, 233));
         add_population.setForeground(Color.BLACK);
+        add_population.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int min = Integer.parseInt(textField_1.getText());
+                    int max = Integer.parseInt(textField_2.getText());
+                    int pm25Value = getAveragePM25(); // ใช้ค่าที่เหมาะสมในการคำนวณ
+                    int populationSick = Utility.calculatePopulationSick(min, max, pm25Value);
+                    // แสดงผลหรือใช้ค่า populationSick ตามต้องการ
+                    System.out.println("Population Sick: " + populationSick);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numbers in the text fields.");
+                }
+            }
+        });
 
-
+        textField_1 = new JTextField("0");
+        textField_2 = new JTextField("100");
 
         add(back);
         add(button_rain);
         add(random_rain);
         add(add_files);
-        add(add_population);
-
-        /*textField_1 = new JTextField();
-        textField_1.setBounds(700, 10, 100, 25);
-        textField_2 = new JTextField();
-        textField_2.setBounds(810, 10, 100, 25);
-
         add(textField_1);
-        add(textField_2);*/
+        add(textField_2);
+        add(add_population);
     }
 
+    // ฟังก์ชันเพื่อให้ค่า pm25 จากไฟล์หรือแหล่งข้อมูล
+    private int getAveragePM25() {
+        int total = 0;
+        int count = 0;
+        for (int[] row : pm25) {
+            for (int value : row) {
+                total += value;
+                count++;
+            }
+        }
+        return count > 0 ? total / count : 0;
+    }
 
+    public JTextField getTextField1() {
+        return textField_1;
+    }
+
+    public JTextField getTextField2() {
+        return textField_2;
+    }
 
     public JButton getBack() {
         return back;
@@ -110,25 +140,8 @@ public class ControlPanel extends JPanel {
     public JButton getAddFiles() {
         return add_files;
     }
-    
+
     public JButton getAddPopulation() {
         return add_population;
     }
-    /*public void setBackActionListener(CardLayout cardLayout,JPanel maiPanel){
-       getBack().addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                cardLayout.show(maiPanel, "Main menu");
-            }
-            
-        });
-    }*/
-    
-/*=====================================================================================*/
-
-    
-    
 }
-

@@ -1,48 +1,53 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-
-public class ButtonTarget implements ActionListener {
-    private int row; // เก็บแถวของปุ่มที่ถูกคลิก
-    private int col; // เก็บคอลัมน์ของปุ่มที่ถูกคลิก
-    private CalculateProcess cal;
-    private JButton[][] buttons;
-
-    // Constructor รับค่า row, col, cal, และ buttons เพื่อกำหนดค่าให้กับตัวแปร
-    public ButtonTarget(int row, int col, CalculateProcess cal, JButton[][] buttons) {
-        this.row = row;
-        this.col = col;
-        this.cal = cal;
-        this.buttons = buttons;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        cal.setTarget(row, col);
-        cal.updateButtons();
-    }
-}/*import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class ButtonTarget implements ActionListener {
     private int row;
     private int col;
-    private CalculateProcess frame;
+    private CalculateProcess cal;
     private JButton[][] buttons;
+    private int[][] pm25;
+    private int[][] populations;
+    private ControlPanel controlPanel; // เพิ่ม ControlPanel เพื่อเข้าถึง textField
 
-    public ButtonTarget(int row, int col, CalculateProcess frame, JButton[][] buttons) {
+    public ButtonTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel) {
         this.row = row;
         this.col = col;
-        this.frame = frame;
+        this.cal = cal;
         this.buttons = buttons;
+        this.pm25 = pm25;
+        this.populations = populations;
+        this.controlPanel = controlPanel; // เก็บการอ้างอิง ControlPanel
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // กำหนดเป้าหมายที่ปุ่มนี้เมื่อถูกคลิก
-        frame.setTarget(row, col);
+        int pm25Value = pm25[row][col];
+
+        try {
+            // ดึงค่าจาก textField_1 และ textField_2
+            int min = Integer.parseInt(controlPanel.getTextField1().getText());
+            int max = Integer.parseInt(controlPanel.getTextField2().getText());
+
+            // ตรวจสอบว่าค่าของ min และ max ถูกต้องหรือไม่
+            if (min > max) {
+                throw new IllegalArgumentException("Min should be less than or equal to Max.");
+            }
+
+            // คำนวณค่า randomPopulation, populationSick และ goodPopulation
+            int randomPopulation = Utility.getRandomValueInRange(min, max);
+            int populationSick = Utility.calculatePopulationSick(min, max, pm25Value);
+            int goodPopulation = randomPopulation - populationSick;
+
+            // แสดงผลลัพธ์
+            JOptionPane.showMessageDialog(null, 
+                String.format("For Button at Row %d, Column %d:\nRandom Population: %d\nPopulation Sick: %d\nGood Population: %d", row, col, randomPopulation, populationSick, goodPopulation));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid input: Please enter valid integers in the text fields.");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 }
- */

@@ -13,24 +13,33 @@ import java.nio.file.Paths;
 public class CalculateProcess extends JPanel {
     private static final int WIDTH = 20;
     private static final int HEIGHT = 10;
-    private int[][] pm25Levels = new int[HEIGHT][WIDTH];
-    private JButton[][] buttons = new JButton[HEIGHT][WIDTH];
-    private int[][] populations = new int[HEIGHT][WIDTH];
+    private int[][] pm25Levels;
+    private JButton[][] buttons;
+    private int[][] populations;
     private int targetRow = -1;
     private int targetCol = -1;
-    DataPanel dataPanel;
-
+    private DataPanel dataPanel;
+    private ControlPanel controlPanel;
     private String mode = "";
     private boolean isArtificialRainMode = false;
-
-    ControlPanel controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
+    
     public CalculateProcess() {
         setLayout(new BorderLayout());
+        
 
-        dataPanel = new DataPanel(pm25Levels, buttons, populations, this);
+        // Initialize arrays
+        pm25Levels = new int[HEIGHT][WIDTH];
+        buttons = new JButton[HEIGHT][WIDTH];
+        populations = new int[HEIGHT][WIDTH];
+
+        // Initialize DataPanel and ControlPanel
+        controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
+        dataPanel = new DataPanel(pm25Levels, buttons, populations, this, controlPanel);
+        
+
+        // Add panels to layout
         add(dataPanel, BorderLayout.WEST);
         add(controlPanel, BorderLayout.SOUTH);
-
 
         updateButtons();
     }
@@ -49,22 +58,23 @@ public class CalculateProcess extends JPanel {
         }
     }
 
-    // เลือกปุ่มเพื่อที่ให้ให้ฝนแบบไหนทำงานตามที่ผู้ใช้ต้องการ
+    // เลือกปุ่มเพื่อที่ให้ฝนแบบไหนทำงานตามที่ผู้ใช้ต้องการ
     public void setTarget(int row, int col) {
         this.targetRow = row;
         this.targetCol = col;
-        if(mode.equals("ArtificialRain")){
+        if (mode.equals("ArtificialRain")) {
             if (targetRow != -1 && targetCol != -1) {
-            RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
-            updateButtons();
+                RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
+                updateButtons();
+            }
         }
-        }
-        //updateButtons();
     }
-    public boolean isArtificialRainMode(){
+
+    public boolean isArtificialRainMode() {
         return isArtificialRainMode;
     }
-    public void toggleArtificialRainMode(){
+
+    public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
         if (!isArtificialRainMode) {
             targetRow = -1; // ยกเลิกเป้าหมายเมื่อโหมดถูกปิด
@@ -72,8 +82,8 @@ public class CalculateProcess extends JPanel {
             this.mode = "";
             updateButtons(); // รีเฟรชปุ่มทั้งหมดเพื่อแสดงผลลัพธ์ที่เปลี่ยนแปลง
         }
-
     }
+
     // ฝนเทียม
     public void useFonTaerm() {
         this.mode = "ArtificialRain";
@@ -90,16 +100,13 @@ public class CalculateProcess extends JPanel {
     public void loadFile() {
         dataPanel.AddFile();
     }
-    public void setBackActionListener(CardLayout cardLayout,JPanel maiPanel){
-        controlPanel.getBack().addActionListener(new ActionListener() {
 
+    public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
+        controlPanel.getBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 cardLayout.show(maiPanel, "Main menu");
             }
-            
         });
-     }
-
+    }
 }
