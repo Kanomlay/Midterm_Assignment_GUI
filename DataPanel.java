@@ -20,7 +20,6 @@ public class DataPanel extends JPanel {
         this.frame = frame;
         this.controlPanel = controlPanel; // กำหนด ControlPanel
 
-        //setBackground(new Color(174, 214, 241)); 
         setLayout(new GridLayout(10, 20, 0, 0));
     }
 

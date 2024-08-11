@@ -68,10 +68,10 @@ public class CalculateProcess extends JPanel {
                 updateButtons();
             }
         }else if(mode.equals("ShowData")){
-            JOptionPane.showMessageDialog(this, 
+            /*JOptionPane.showMessageDialog(this, 
                 String.format("Row: %d, Col: %d\nPM2.5: %d\nPopulation: %d",row, col, pm25Levels[row][col], populations[row][col]), 
                 "Population Data", 
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE); */
         }
     }
 

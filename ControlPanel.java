@@ -14,11 +14,13 @@ public class ControlPanel extends JPanel {
     private CalculateProcess cal;
     private Utility utility;
     private int[][] pm25;
+    private JButton[][] buttons;
 
     public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
         this.cal = cal;
         this.pm25 = pm25;
         this.utility = new Utility();
+        this.buttons = buttons;
 
         setLayout(new GridLayout(1, 6, 10, 10));
         setBackground(new Color(174, 214, 241));
@@ -83,9 +85,17 @@ public class ControlPanel extends JPanel {
                     int min = Integer.parseInt(textField_1.getText());
                     int max = Integer.parseInt(textField_2.getText());
                     int pm25Value = getAveragePM25(); // ใช้ค่าที่เหมาะสมในการคำนวณ
-                    int populationSick = Utility.calculatePopulationSick(min, max, pm25Value);
-                    // แสดงผลหรือใช้ค่า populationSick ตามต้องการ
-                    System.out.println("Population Sick: " + populationSick);
+
+                    // รีเซ็ตค่าที่คำนวณไว้ใน ButtonTarget ทุกปุ่ม
+                    for (int row = 0; row < buttons.length; row++) {
+                        for (int col = 0; col < buttons[row].length; col++) {
+                            ButtonTarget bt = (ButtonTarget) buttons[row][col].getActionListeners()[0];
+                            bt.resetPopulationCalculations();
+                        }
+                    }
+
+                    // ดำเนินการอื่น ๆ ที่ต้องการ
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter valid numbers in the text fields.");
                 }

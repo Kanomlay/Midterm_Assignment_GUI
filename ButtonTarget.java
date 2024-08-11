@@ -12,6 +12,10 @@ public class ButtonTarget implements ActionListener {
     private int[][] populations;
     private ControlPanel controlPanel; // เพิ่ม ControlPanel เพื่อเข้าถึง textField
 
+    private Integer randomPopulation; // เก็บค่า randomPopulation
+    private Integer populationSick; // เก็บค่า populationSick
+    private Integer goodPopulation; // เก็บค่า goodPopulation
+
     public ButtonTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel) {
         this.row = row;
         this.col = col;
@@ -24,8 +28,7 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        cal.setTarget(row, col);
-        /*int pm25Value = pm25[row][col];
+        int pm25Value = pm25[row][col];
 
         try {
             // ดึงค่าจาก textField_1 และ textField_2
@@ -37,19 +40,30 @@ public class ButtonTarget implements ActionListener {
                 throw new IllegalArgumentException("Min should be less than or equal to Max.");
             }
 
-            // คำนวณค่า randomPopulation, populationSick และ goodPopulation
-            int randomPopulation = Utility.getRandomValueInRange(min, max);
-            int populationSick = Utility.calculatePopulationSick(min, max, pm25Value);
-            int goodPopulation = randomPopulation - populationSick;
+            // ถ้า randomPopulation ยังไม่ได้ถูกคำนวณหรือมีการกดปุ่ม Add Population ให้คำนวณใหม่
+            if (randomPopulation == null) {
+                randomPopulation = Utility.getRandomValueInRange(min, max);
+                populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
+                goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
+            }
+            // คำนวณเปอร์เซ็นต์ของ populationSick
+            double percentageSick = (populationSick / (double) randomPopulation) * 100;
 
             // แสดงผลลัพธ์
             JOptionPane.showMessageDialog(null, 
-                String.format("For Button at Row %d, Column %d:\nRandom Population: %d\nPopulation Sick: %d\nGood Population: %d", row, col, randomPopulation, populationSick, goodPopulation));
+                String.format("For Button at Row %d, Column %d\nPM2.5 Value: %d\nRandom Population: %d\nPopulation Sick: %d (%.2f%%)\nGood Population: %d", 
+                row, col,pm25Value,randomPopulation, populationSick, percentageSick, goodPopulation));
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Invalid input: Please enter valid integers in the text fields.");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        }*/
+        }
     }
-    
+
+    // ฟังก์ชันที่จะเรียกเมื่อมีการกดปุ่ม Add Population เพื่อรีเซ็ตค่าที่คำนวณไว้
+    public void resetPopulationCalculations() {
+        this.randomPopulation = null;
+        this.populationSick = null;
+        this.goodPopulation = null;
+    }
 }
