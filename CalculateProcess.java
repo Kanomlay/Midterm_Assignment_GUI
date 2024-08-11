@@ -20,7 +20,7 @@ public class CalculateProcess extends JPanel {
     private int targetCol = -1;
     private DataPanel dataPanel;
     private ControlPanel controlPanel;
-    private String mode = "";
+    private String mode = "ShowData";
     private boolean isArtificialRainMode = false;
     
     public CalculateProcess() {
@@ -67,6 +67,11 @@ public class CalculateProcess extends JPanel {
                 RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
                 updateButtons();
             }
+        }else if(mode.equals("ShowData")){
+            JOptionPane.showMessageDialog(this, 
+                String.format("Row: %d, Col: %d\nPM2.5: %d\nPopulation: %d",row, col, pm25Levels[row][col], populations[row][col]), 
+                "Population Data", 
+                JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -77,10 +82,13 @@ public class CalculateProcess extends JPanel {
     public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
         if (!isArtificialRainMode) {
+            //this.mode = "ArtificialRain";
+            this.mode = "ShowData";
+        }else{
+            this.mode = "ShowData";
             targetRow = -1; // ยกเลิกเป้าหมายเมื่อโหมดถูกปิด
             targetCol = -1;
-            this.mode = "";
-            updateButtons(); // รีเฟรชปุ่มทั้งหมดเพื่อแสดงผลลัพธ์ที่เปลี่ยนแปลง
+            updateButtons();
         }
     }
 
@@ -100,12 +108,19 @@ public class CalculateProcess extends JPanel {
     public void loadFile() {
         dataPanel.AddFile();
     }
-
+    public void resetdata(){
+        for(int row = 0;row<HEIGHT;row++){
+            for(int col = 0;col<WIDTH;col++){
+                buttons[row][col].setVisible(false);
+            }
+        }
+    }
     public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
         controlPanel.getBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(maiPanel, "Main menu");
+                resetdata();
             }
         });
     }

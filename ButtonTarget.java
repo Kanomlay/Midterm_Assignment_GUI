@@ -24,7 +24,8 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int pm25Value = pm25[row][col];
+        cal.setTarget(row, col);
+        /*int pm25Value = pm25[row][col];
 
         try {
             // ดึงค่าจาก textField_1 และ textField_2
@@ -48,6 +49,7 @@ public class ButtonTarget implements ActionListener {
             JOptionPane.showMessageDialog(null, "Invalid input: Please enter valid integers in the text fields.");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+        }*/
     }
+    
 }
