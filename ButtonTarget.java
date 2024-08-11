@@ -42,9 +42,10 @@ public class ButtonTarget implements ActionListener {
 
             if (randomPopulation == null) {
                 randomPopulation = Utility.getRandomValueInRange(min, max);
-                populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
-                goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
             }
+
+            populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
+            goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
 
             double percentageSick = (populationSick / (double) randomPopulation) * 100;
 
