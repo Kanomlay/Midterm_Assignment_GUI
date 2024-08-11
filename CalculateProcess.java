@@ -16,10 +16,12 @@ public class CalculateProcess extends JPanel {
     private String mode = "ShowData";
     private boolean isArtificialRainMode = false;
     private ShowInformation showInformation;
-
+    private Integer randomPopulation; 
+    private Integer populationSick; 
+    private Integer goodPopulation;
     public CalculateProcess() {
         setLayout(new BorderLayout());
-
+        
         // Initialize arrays
         pm25Levels = new int[HEIGHT][WIDTH];
         buttons = new JButton[HEIGHT][WIDTH];
@@ -53,17 +55,45 @@ public class CalculateProcess extends JPanel {
     }
 
     // Set target button based on user selection
-    public void setTarget(int row, int col) {
+    public void setTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel, ShowInformation showInformation) {
         this.targetRow = row;
         this.targetCol = col;
+        this.buttons = buttons;
+        this.populations = populations;
+        this.controlPanel = controlPanel;
+        this.showInformation = showInformation;
         if (mode.equals("ArtificialRain")) {
             if (targetRow != -1 && targetCol != -1) {
                 RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
                 updateButtons();
             }
+        } else if (mode.equals("ShowData")) {
+            
+           /* int pm25Value = pm25[row][col];
+    
+            try {
+
+                int min = Integer.parseInt(controlPanel.getTextField1().getText());
+                int max = Integer.parseInt(controlPanel.getTextField2().getText());
+    
+                if (min > max) {
+                    throw new IllegalArgumentException("Min should be less than or equal to Max.");
+                }
+    
+                // คำนวณค่าใหม่ทุกครั้งที่กดปุ่ม
+                if (randomPopulation == null) {
+                    randomPopulation = Utility.getRandomValueInRange(min, max);
+                    populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
+                    goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
+                }
+                double percentageSick = (populationSick / (double) randomPopulation) * 100;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid input: Please enter valid integers in the text fields.");
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }*/
         }
     }
-
     public boolean isArtificialRainMode() {
         return isArtificialRainMode;
     }

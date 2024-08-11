@@ -29,6 +29,7 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        cal.setTarget(row, col, cal, buttons, pm25, populations, controlPanel, showInformation);
         int pm25Value = pm25[row][col];
 
         try {
