@@ -22,7 +22,7 @@ public class CalculateProcess extends JPanel {
     private ControlPanel controlPanel;
     private String mode = "ShowData";
     private boolean isArtificialRainMode = false;
-    
+    ShowInformation showInformation;
     public CalculateProcess() {
         setLayout(new BorderLayout());
         
@@ -35,11 +35,14 @@ public class CalculateProcess extends JPanel {
         // Initialize DataPanel and ControlPanel
         controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
         dataPanel = new DataPanel(pm25Levels, buttons, populations, this, controlPanel);
+        showInformation = new ShowInformation();
         
 
         // Add panels to layout
         add(dataPanel, BorderLayout.WEST);
         add(controlPanel, BorderLayout.SOUTH);
+        add(showInformation.panel_1,BorderLayout.EAST);
+        //showInformation.panel_1.add(showInformation.panel_2,BorderLayout.NORTH);
 
         updateButtons();
     }
@@ -110,8 +113,14 @@ public class CalculateProcess extends JPanel {
     }
     public void resetdata(){
         for(int row = 0;row<HEIGHT;row++){
-            for(int col = 0;col<WIDTH;col++){
-                buttons[row][col].setVisible(false);
+            try {
+                for(int col = 0;col<WIDTH;col++){
+                    buttons[row][col].setVisible(false); // ซ่อนปุ่ม
+                    remove(buttons[row][col]); // ลบปุ่มออกจาก layout
+                    buttons[row][col] = null; // ตั้งค่าให้เป็น null
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
             }
         }
     }
