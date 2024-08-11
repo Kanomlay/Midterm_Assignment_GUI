@@ -84,17 +84,16 @@ public class ControlPanel extends JPanel {
                 try {
                     int min = Integer.parseInt(textField_1.getText());
                     int max = Integer.parseInt(textField_2.getText());
-                    int pm25Value = getAveragePM25(); // ใช้ค่าที่เหมาะสมในการคำนวณ
+                    int pm25Value = getAveragePM25();
 
                     // รีเซ็ตค่าที่คำนวณไว้ใน ButtonTarget ทุกปุ่ม
                     for (int row = 0; row < buttons.length; row++) {
                         for (int col = 0; col < buttons[row].length; col++) {
-                            ButtonTarget bt = (ButtonTarget) buttons[row][col].getActionListeners()[0];
+                            JButton button = buttons[row][col];
+                            ButtonTarget bt = (ButtonTarget) button.getActionListeners()[0];
                             bt.resetPopulationCalculations();
                         }
                     }
-
-                    // ดำเนินการอื่น ๆ ที่ต้องการ
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter valid numbers in the text fields.");
@@ -114,7 +113,6 @@ public class ControlPanel extends JPanel {
         add(add_population);
     }
 
-    // ฟังก์ชันเพื่อให้ค่า pm25 จากไฟล์หรือแหล่งข้อมูล
     private int getAveragePM25() {
         int total = 0;
         int count = 0;

@@ -2,13 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 
 public class CalculateProcess extends JPanel {
     private static final int WIDTH = 20;
@@ -22,38 +15,36 @@ public class CalculateProcess extends JPanel {
     private ControlPanel controlPanel;
     private String mode = "ShowData";
     private boolean isArtificialRainMode = false;
-    ShowInformation showInformation;
+    private ShowInformation showInformation;
+
     public CalculateProcess() {
         setLayout(new BorderLayout());
-        
 
         // Initialize arrays
         pm25Levels = new int[HEIGHT][WIDTH];
         buttons = new JButton[HEIGHT][WIDTH];
         populations = new int[HEIGHT][WIDTH];
 
-        // Initialize DataPanel and ControlPanel
+        // Initialize DataPanel, ControlPanel, and ShowInformation
         controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
-        dataPanel = new DataPanel(pm25Levels, buttons, populations, this, controlPanel);
         showInformation = new ShowInformation();
-        
+        dataPanel = new DataPanel(pm25Levels, buttons, populations, this, controlPanel, showInformation);
 
         // Add panels to layout
         add(dataPanel, BorderLayout.WEST);
         add(controlPanel, BorderLayout.SOUTH);
-        add(showInformation.panel_1,BorderLayout.EAST);
-        //showInformation.panel_1.add(showInformation.panel_2,BorderLayout.NORTH);
+        add(showInformation.panel_1, BorderLayout.EAST);
 
         updateButtons();
     }
-    // อัพเดตปุ่ม
+
+    // Update button states
     public void updateButtons() {
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 JButton button = buttons[row][col];
-                if (button != null) { // Ensure button is not null
+                if (button != null) {
                     int pm25 = pm25Levels[row][col];
-                    int population = populations[row][col];
                     button.setBackground(Utility.getColorForHealthRisk(pm25));
                     button.setFont(new Font("Arial", Font.PLAIN, 7));
                 }
@@ -61,7 +52,7 @@ public class CalculateProcess extends JPanel {
         }
     }
 
-    // เลือกปุ่มเพื่อที่ให้ฝนแบบไหนทำงานตามที่ผู้ใช้ต้องการ
+    // Set target button based on user selection
     public void setTarget(int row, int col) {
         this.targetRow = row;
         this.targetCol = col;
@@ -70,11 +61,6 @@ public class CalculateProcess extends JPanel {
                 RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
                 updateButtons();
             }
-        }else if(mode.equals("ShowData")){
-            /*JOptionPane.showMessageDialog(this, 
-                String.format("Row: %d, Col: %d\nPM2.5: %d\nPopulation: %d",row, col, pm25Levels[row][col], populations[row][col]), 
-                "Population Data", 
-                JOptionPane.INFORMATION_MESSAGE); */
         }
     }
 
@@ -85,22 +71,21 @@ public class CalculateProcess extends JPanel {
     public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
         if (!isArtificialRainMode) {
-            //this.mode = "ArtificialRain";
             this.mode = "ShowData";
-        }else{
-            this.mode = "ShowData";
-            targetRow = -1; // ยกเลิกเป้าหมายเมื่อโหมดถูกปิด
+        } else {
+            this.mode = "ArtificialRain";
+            targetRow = -1;
             targetCol = -1;
             updateButtons();
         }
     }
 
-    // ฝนเทียม
+    // Use artificial rain
     public void useFonTaerm() {
         this.mode = "ArtificialRain";
     }
 
-    // ฝนตามธรรมชาติ
+    // Use natural rain
     public void useFonJing() {
         this.isArtificialRainMode = false;
         this.mode = "NaturalRain";
@@ -108,22 +93,25 @@ public class CalculateProcess extends JPanel {
         updateButtons();
     }
 
+    // Load data from file
     public void loadFile() {
         dataPanel.AddFile();
     }
-    public void resetdata(){
-        for(int row = 0;row<HEIGHT;row++){
-            try {
-                for(int col = 0;col<WIDTH;col++){
-                    buttons[row][col].setVisible(false); // ซ่อนปุ่ม
-                    remove(buttons[row][col]); // ลบปุ่มออกจาก layout
-                    buttons[row][col] = null; // ตั้งค่าให้เป็น null
+
+    // Reset data
+    public void resetdata() {
+        for (int row = 0; row < HEIGHT; row++) {
+            for (int col = 0; col < WIDTH; col++) {
+                if (buttons[row][col] != null) {
+                    buttons[row][col].setVisible(false);
+                    remove(buttons[row][col]);
+                    buttons[row][col] = null;
                 }
-            } catch (Exception e) {
-                // TODO: handle exception
             }
         }
     }
+
+    // Set back action listener for control panel
     public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
         controlPanel.getBack().addActionListener(new ActionListener() {
             @Override
