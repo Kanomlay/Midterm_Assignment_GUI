@@ -21,10 +21,19 @@ public class Utility {
 
     // สุ่มค่าภายในช่วง
     public static int getRandomValueInRange(int min, int max) {
+        int value = 0;
         if (min > max) {
-            throw new IllegalArgumentException("Min should be less than or equal to Max.");
+            //throw new IllegalArgumentException("Min should be less than or equal to Max.");
+            value = max + (int) (Math.random() * ((min - max) + 1));
         }
-        return min + (int) (Math.random() * ((max - min) + 1));
+        else if(max > min){
+            value = min + (int) (Math.random() * ((max - min) + 1));
+        }
+    
+        else{
+            value = max + (int) (Math.random() * ((min - max) + 1));
+        }
+        return value;
     }
 
     // คำนวณประชากรที่ป่วยจากค่า randomPopulation และ pm25
