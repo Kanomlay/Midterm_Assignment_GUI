@@ -1,22 +1,67 @@
-import java.awt.Color;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 
-//import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+public class GUI extends JFrame{
+    private JPanel mainpanel;
+    private JPanel Aboutmenu;
+    private CardLayout cardLayout;
+    public GUI(){
+        cardLayout = new CardLayout();
+        mainpanel = new JPanel(cardLayout);
 
+        mybutton button = new mybutton();
+        UI_About about = new UI_About(cardLayout,mainpanel);
+        CalculateProcess calculateProcess = new CalculateProcess();
+        calculateProcess.setBackActionListener(cardLayout, mainpanel);
 
-public class GUI {
+        mainpanel.add(button,"Main menu");
+        mainpanel.add(calculateProcess,"calculateProcess");
+        mainpanel.add(about,"About");
 
-    public static void main(String[] args){
-        JFrame frame = new JFrame("Simple Calculator");//Create a frame    
-        frame.setTitle("GUI");//set the title
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exits on close
-        frame.setResizable(false);//Prevent frame from being resized
-        frame.setSize(500, 420);//set the size of the frame
-        frame.setVisible(true);//make Frame visible
+        cardLayout.show(mainpanel, "Main menu");
 
-        //ImageIcon image = new ImageIcon();//create an imageicon
-        Color background = new Color(190,239,248);
-        //frame.setIconImage(image.getImage());//change icon of the frame
-        frame.getContentPane().setBackground(background);//change background of the frame
+        add(mainpanel);
+        setTitle("PM 2.5");
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setSize(1500,800);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        button.getButton1().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                cardLayout.show(mainpanel, "calculateProcess");
+            }
+            
+        });
+        button.getButton2().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(mainpanel, "About");
+            }
+            
+        });
+        button.getButton3().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                System.exit(0);
+            }
+            
+        });
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                new GUI();
+            }
+            
+        });
     }
 }
