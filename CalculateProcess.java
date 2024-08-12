@@ -35,7 +35,6 @@ public class CalculateProcess extends JPanel {
         // Add panels to layout
         add(dataPanel, BorderLayout.WEST);
         add(controlPanel, BorderLayout.SOUTH);
-        add(showInformation.panel_1, BorderLayout.EAST);
 
         updateButtons();
     }
@@ -122,11 +121,17 @@ public class CalculateProcess extends JPanel {
     // Load data from file
     public void loadFile() {
         dataPanel.AddFile();
+        add(showInformation.panel_1, BorderLayout.EAST);
+        showInformation.panel_1.setVisible(true);
     }
 
     // Reset data
     public void resetdata() {
-        //showInformation.panel_1.setVisible(false);
+        showInformation.panel_1.setVisible(false);
+        showInformation.label_1.setIcon(null); // ลบรูปภาพจาก label_1
+        showInformation.infoLabel.setText(""); // ลบข้อความใน infoLabel
+        showInformation.revalidate(); // รีเฟรช layout เพื่ออัพเดตการเปลี่ยนแปลง
+        showInformation.repaint(); // วาดใหม่เพื่อให้แ
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 if (buttons[row][col] != null) {

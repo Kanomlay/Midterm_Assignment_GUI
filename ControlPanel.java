@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +17,8 @@ public class ControlPanel extends JPanel {
     private Utility utility;
     private int[][] pm25;
     private JButton[][] buttons;
-
     public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         this.cal = cal;
         this.pm25 = pm25;
         this.utility = new Utility();
@@ -29,10 +31,12 @@ public class ControlPanel extends JPanel {
         back.setPreferredSize(new Dimension(100, 50));
         back.setBackground(new Color(133, 193, 233));
         back.setForeground(Color.BLACK);
+        back.setBorder(border);
 
         button_rain = new JButton("Artificial Rain");
         button_rain.setPreferredSize(new Dimension(150, 50));
         button_rain.setBackground(new Color(133, 193, 233));
+        button_rain.setBorder(border);
         button_rain.setForeground(Color.BLACK);
         button_rain.addActionListener(new ActionListener() {
             @Override
@@ -56,6 +60,7 @@ public class ControlPanel extends JPanel {
         random_rain.setPreferredSize(new Dimension(125, 50));
         random_rain.setBackground(new Color(133, 193, 233));
         random_rain.setForeground(Color.BLACK);
+        random_rain.setBorder(border);
         random_rain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +72,7 @@ public class ControlPanel extends JPanel {
         add_files.setPreferredSize(new Dimension(100, 50));
         add_files.setBackground(new Color(133, 193, 233));
         add_files.setForeground(Color.BLACK);
+        add_files.setBorder(border);
         add_files.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +84,7 @@ public class ControlPanel extends JPanel {
         add_population.setPreferredSize(new Dimension(100, 50));
         add_population.setBackground(new Color(133, 193, 233));
         add_population.setForeground(Color.BLACK);
+        add_population.setBorder(border);
         add_population.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,7 +109,9 @@ public class ControlPanel extends JPanel {
         });
 
         textField_1 = new JTextField("0");
+        textField_1.setBorder(border);
         textField_2 = new JTextField("100");
+        textField_2.setBorder(border);
 
         add(back);
         add(button_rain);

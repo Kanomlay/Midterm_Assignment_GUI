@@ -23,7 +23,7 @@ public class GUI extends JFrame{
 
         add(mainpanel);
         setTitle("PM 2.5");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(1500,800);
         setLocationRelativeTo(null);
         setVisible(true);
