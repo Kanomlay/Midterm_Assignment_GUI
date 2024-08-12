@@ -55,19 +55,15 @@ public class CalculateProcess extends JPanel {
     }
 
     // Set target button based on user selection
-    public void setTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel, ShowInformation showInformation) {
+    public void setTarget(int row, int col) {
         this.targetRow = row;
         this.targetCol = col;
-        this.buttons = buttons;
-        this.populations = populations;
-        this.controlPanel = controlPanel;
-        this.showInformation = showInformation;
         if (mode.equals("ArtificialRain")) {
             if (targetRow != -1 && targetCol != -1) {
                 RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
                 updateButtons();
             }
-        } else if (mode.equals("ShowData")) {
+        } 
             
            /* int pm25Value = pm25[row][col];
     
@@ -92,7 +88,7 @@ public class CalculateProcess extends JPanel {
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }*/
-        }
+        
     }
     public boolean isArtificialRainMode() {
         return isArtificialRainMode;
@@ -130,6 +126,7 @@ public class CalculateProcess extends JPanel {
 
     // Reset data
     public void resetdata() {
+        //showInformation.panel_1.setVisible(false);
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 if (buttons[row][col] != null) {
