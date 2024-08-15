@@ -6,9 +6,7 @@ public class ButtonTarget implements ActionListener {
     private int row;
     private int col;
     private CalculateProcess cal;
-    private JButton[][] buttons;
     private int[][] pm25;
-    private int[][] populations;
     private ControlPanel controlPanel;
     private ShowInformation showInformation;
 
@@ -21,25 +19,19 @@ public class ButtonTarget implements ActionListener {
         this.row = row;
         this.col = col;
         this.cal = cal;
-        this.buttons = buttons;
         this.pm25 = pm25;
-        this.populations = populations;
         this.controlPanel = controlPanel;
         this.showInformation = showInformation;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        cal.setTarget(row, col);
-        int pm25Value = pm25[row][col];
+            cal.setTarget(row, col);
+            int pm25Value = pm25[row][col];
 
         try {
             int min = Integer.parseInt(controlPanel.getTextField1().getText());
             int max = Integer.parseInt(controlPanel.getTextField2().getText());
-
-            /*if (min > max) {
-                throw new IllegalArgumentException("Min should be less than or equal to Max.");
-            }*/
 
             if (randomPopulation == null) {
                 // ถ้ายังไม่ได้คำนวณมาก่อน ให้สร้าง randomPopulation
@@ -66,6 +58,7 @@ public class ButtonTarget implements ActionListener {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        
     }
 
     public void resetPopulationCalculations() {

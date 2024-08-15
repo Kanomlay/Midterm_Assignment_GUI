@@ -22,10 +22,11 @@ public class ShowInformation extends JPanel {
 
         label_1 = new JLabel();
         label_1.setPreferredSize(new Dimension(400, 285));
+        
         infoLabel = new JLabel();
         infoLabel.setPreferredSize(new Dimension(405, 50));
-        infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        infoLabel.setVerticalAlignment(SwingConstants.CENTER);
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวนอน
+        infoLabel.setVerticalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวตั้ง
 
         panel_1 = new JPanel(new BorderLayout());
         panel_1.setBorder(border_button);
@@ -76,6 +77,6 @@ public class ShowInformation extends JPanel {
                     + "<b>ร้อยละของประชากรที่ป่วย : </b> " + String.format("%.2f", percentageSick) + "%<br>"
                     + "</h1></html>";
 
-        infoLabel.setText(text);
+        infoLabel.setText(text);// แสดงข้อความใน infoLabel
     }
 }

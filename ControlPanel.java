@@ -13,16 +13,10 @@ public class ControlPanel extends JPanel {
     private JButton add_population;
     private JTextField textField_1;
     private JTextField textField_2;
-    private CalculateProcess cal;
-    private Utility utility;
     private int[][] pm25;
-    private JButton[][] buttons;
     public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-        this.cal = cal;
         this.pm25 = pm25;
-        this.utility = new Utility();
-        this.buttons = buttons;
 
         setLayout(new GridLayout(1, 6, 10, 10));
         setBackground(new Color(174, 214, 241));
@@ -89,10 +83,7 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int min = Integer.parseInt(textField_1.getText());
-                    int max = Integer.parseInt(textField_2.getText());
-                    int pm25Value = getAveragePM25();
-
+               
                     // รีเซ็ตค่าที่คำนวณไว้ใน ButtonTarget ทุกปุ่ม
                     for (int row = 0; row < buttons.length; row++) {
                         for (int col = 0; col < buttons[row].length; col++) {
