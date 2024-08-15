@@ -116,9 +116,8 @@ public class CalculateProcess extends JPanel {
         }
     }
     public String getMode(){
-        return mode;
-    }
-
+        return mode;      
+    }  
     // ตั้งค่า ActionListener สำหรับปุ่มกลับใน Mainmenu
     public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
         controlPanel.getBack().addActionListener(new ActionListener() {

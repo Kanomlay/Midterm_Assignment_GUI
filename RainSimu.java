@@ -29,7 +29,7 @@ public class RainSimu {
                     pm25Levels[newRow][newCol] *= 0.5;
                 } else {
                     //ซลล์โดยรอบ ลดระดับ PM2.5 ลง 30%
-                    pm25Levels[newRow][newCol] *= 0.3;
+                    pm25Levels[newRow][newCol] *=  0.7;
                 }
             }
         }
