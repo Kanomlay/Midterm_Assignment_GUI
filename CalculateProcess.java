@@ -13,12 +13,9 @@ public class CalculateProcess extends JPanel {
     private int targetCol = -1;
     private DataPanel dataPanel;
     private ControlPanel controlPanel;
-    private String mode = "ShowData";
-    private boolean isArtificialRainMode = false;
+    private String mode = "ShowData";// กำหนดโหมดเริ่มต้นเป็น "ShowData"
+    private boolean isArtificialRainMode = false;// กำหนดสถานะโหมดฝนเทียม
     private ShowInformation showInformation;
-    private Integer randomPopulation; 
-    private Integer populationSick; 
-    private Integer goodPopulation;
     public CalculateProcess() {
         setLayout(new BorderLayout());
         
@@ -62,33 +59,9 @@ public class CalculateProcess extends JPanel {
                 RainSimu.useArtificialRain(pm25Levels, targetRow, targetCol);
                 updateButtons();
             }
-        } 
-            
-           /* int pm25Value = pm25[row][col];
-    
-            try {
-
-                int min = Integer.parseInt(controlPanel.getTextField1().getText());
-                int max = Integer.parseInt(controlPanel.getTextField2().getText());
-    
-                if (min > max) {
-                    throw new IllegalArgumentException("Min should be less than or equal to Max.");
-                }
-    
-                // คำนวณค่าใหม่ทุกครั้งที่กดปุ่ม
-                if (randomPopulation == null) {
-                    randomPopulation = Utility.getRandomValueInRange(min, max);
-                    populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
-                    goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
-                }
-                double percentageSick = (populationSick / (double) randomPopulation) * 100;
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid input: Please enter valid integers in the text fields.");
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }*/
-        
+        }  
     }
+    // ตรวจสอบสถานะโหมดฝนเทียม
     public boolean isArtificialRainMode() {
         return isArtificialRainMode;
     }
@@ -96,21 +69,21 @@ public class CalculateProcess extends JPanel {
     public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
         if (!isArtificialRainMode) {
-            this.mode = "ShowData";
+            this.mode = "ShowData";// เปลี่ยนโหมดเป็น "ShowData" เมื่อปิดโหมดฝนเทียม
         } else {
-            this.mode = "ArtificialRain";
+            this.mode = "ArtificialRain";// เปลี่ยนโหมดเป็น "ArtificialRain" เมื่อเปิดโหมดฝนเทียม
             targetRow = -1;
             targetCol = -1;
             updateButtons();
         }
     }
 
-    // Use artificial rain
+    // ใช้ฝนเทียม
     public void useFonTaerm() {
         this.mode = "ArtificialRain";
     }
 
-    // Use natural rain
+    // ใช้ฝนธรรมชาติ
     public void useFonJing() {
         this.isArtificialRainMode = false;
         this.mode = "NaturalRain";
@@ -118,32 +91,34 @@ public class CalculateProcess extends JPanel {
         updateButtons();
     }
 
-    // Load data from file
+    // โหลดข้อมูลจากไฟล์
     public void loadFile() {
         dataPanel.AddFile();
-        add(showInformation.panel_1, BorderLayout.EAST);
-        showInformation.panel_1.setVisible(true);
+        add(showInformation.panel_1, BorderLayout.EAST);// เพิ่ม panel_1 ของ showInformation ทางด้านขวา (EAST)
+        showInformation.panel_1.setVisible(true);// แสดง panel_1
     }
 
-    // Reset data
+    // รีเซ็ตข้อมูล
     public void resetdata() {
         showInformation.panel_1.setVisible(false);
         showInformation.label_1.setIcon(null); // ลบรูปภาพจาก label_1
         showInformation.infoLabel.setText(""); // ลบข้อความใน infoLabel
         showInformation.revalidate(); // รีเฟรช layout เพื่ออัพเดตการเปลี่ยนแปลง
-        showInformation.repaint(); // วาดใหม่เพื่อให้แ
+        showInformation.repaint(); // วาดใหม่
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 if (buttons[row][col] != null) {
                     buttons[row][col].setVisible(false);
-                    remove(buttons[row][col]);
+                    remove(buttons[row][col]);// ลบปุ่มออกจาก layout
                     buttons[row][col] = null;
                 }
             }
         }
     }
-
-    // Set back action listener for control panel
+    public String getMode(){
+        return mode;      
+    }  
+    // ตั้งค่า ActionListener สำหรับปุ่มกลับใน Mainmenu
     public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
         controlPanel.getBack().addActionListener(new ActionListener() {
             @Override
