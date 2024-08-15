@@ -23,40 +23,41 @@ public class DataPanel extends JPanel {
         this.controlPanel = controlPanel;
         this.showInformation = showInformation;
 
-        setLayout(new GridLayout(10, 20, 0, 0));
+        setLayout(new GridLayout(10, 20, 0, 0)); // ตั้งค่า GridLayout ขนาด 10x20 
     }
 
+    // ฟังก์ชันสำหรับการเพิ่มไฟล์ข้อมูล
     public void AddFile() {
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(frame);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             Path filePath = fileChooser.getSelectedFile().toPath();
-            loadDataFromFile(filePath);
+            loadDataFromFile(filePath);// โหลดข้อมูลจากไฟล์ที่เลือก
         }
     }
 
     public void loadDataFromFile(Path filePath) {
-        removeAll(); // Clear existing buttons
+        removeAll(); // ล้างปุ่มที่มีอยู่เดิม
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
             String line;
             int row = 0;
             while ((line = reader.readLine()) != null && row < 10) {
-                String[] values = line.split("\\s+");
+                String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
                 for (int col = 0; col < values.length && col < 20; col++) {
-                    pm25[row][col] = Integer.parseInt(values[col]);
+                    pm25[row][col] = Integer.parseInt(values[col]); // แปลงข้อมูลจาก String เป็น Integer
                     JButton button = new JButton();
-                    button.setPreferredSize(new Dimension(50, 30));
-                    button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));
+                    button.setPreferredSize(new Dimension(50, 30));// ตั้งค่าขนาดของปุ่ม
+                    button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));// ตั้งค่าสีพื้นหลังของปุ่มตามค่า pm2.5
                     buttons[row][col] = button;
                     button.addActionListener(new ButtonTarget(row, col, frame, buttons, pm25, populations, controlPanel, showInformation));
-                    add(button);
+                    add(button);// เพิ่มปุ่มลงใน panel
                 }
                 row++;
             }
         } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
+            System.out.println("IOException: " + e.getMessage());// แสดงข้อความเมื่อเกิดข้อผิดพลาด
         }
-        revalidate(); // Refresh panel
-        repaint();    // Repaint panel
+        revalidate(); // รีเฟรช panel
+        repaint();    // วาด panel ใหม่
     }
 }

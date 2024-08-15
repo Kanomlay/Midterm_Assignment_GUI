@@ -15,11 +15,11 @@ public class ControlPanel extends JPanel {
     private JTextField textField_2;
     private int[][] pm25;
     public ControlPanel(CalculateProcess cal, int[][] pm25, JButton[][] buttons, int[][] populations) {
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 1); // สร้างขอบ
         this.pm25 = pm25;
 
-        setLayout(new GridLayout(1, 6, 10, 10));
-        setBackground(new Color(174, 214, 241));
+        setLayout(new GridLayout(1, 6, 10, 10)); // ตั้งค่า GridLayout ขนาด 1 * 6 
+        setBackground(new Color(174, 214, 241)); // ตั้งค่าสีพื้นหลังของ panel
 
         back = new JButton("BACK");
         back.setPreferredSize(new Dimension(100, 50));
@@ -55,7 +55,7 @@ public class ControlPanel extends JPanel {
         random_rain.setBackground(new Color(133, 193, 233));
         random_rain.setForeground(Color.BLACK);
         random_rain.setBorder(border);
-        random_rain.addActionListener(new ActionListener() {
+            random_rain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cal.useFonJing();
@@ -70,7 +70,7 @@ public class ControlPanel extends JPanel {
         add_files.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cal.loadFile();
+                cal.loadFile();// โหลดข้อมูลจากไฟล์
             }
         });
 
@@ -96,14 +96,17 @@ public class ControlPanel extends JPanel {
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter valid numbers in the text fields.");
                 }
+                catch(NullPointerException ex){
+                    JOptionPane.showMessageDialog(null, "Add file first");
+                }
             }
         });
-
+        // สร้าง text field สำหรับกรอกข้อมูล
         textField_1 = new JTextField("0");
         textField_1.setBorder(border);
         textField_2 = new JTextField("100");
         textField_2.setBorder(border);
-
+        // เพิ่มปุ่มและ text field ลงใน panel
         add(back);
         add(button_rain);
         add(random_rain);
@@ -112,7 +115,7 @@ public class ControlPanel extends JPanel {
         add(textField_2);
         add(add_population);
     }
-
+    // ฟังก์ชันสำหรับการคำนวณค่าเฉลี่ยของ PM2.5
     private int getAveragePM25() {
         int total = 0;
         int count = 0;

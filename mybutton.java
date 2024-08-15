@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.util.concurrent.Flow;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class mybutton extends JPanel {
@@ -12,23 +9,23 @@ public class mybutton extends JPanel {
 
     public mybutton() {
         // Set the background color of the panel
-        setBackground(new Color(174, 214, 241)); // Light gray background for the panel
+        setBackground(new Color(174, 214, 241)); // ตั้งค่าสี background สำหรับ panel
 
         // Create buttons with different colors
         button_1 = new RoundButton("START");
         button_1.setButtonColor(new Color(133, 193, 233)); // Set color for button 1
-        button_1.setHoverColor(new Color(46, 134, 193 )); // Set hover color for button 1
+        button_1.setHoverColor(new Color(46, 134, 193 )); // เมื่อกดจะเปลี่ยนสี
 
         button_2 = new RoundButton("About");
-        button_2.setButtonColor(new Color(133, 193, 233)); // Set color for button 2
-        button_2.setHoverColor(new Color(46, 134, 193 )); // Set hover color for button 2
+        button_2.setButtonColor(new Color(133, 193, 233));
+        button_2.setHoverColor(new Color(46, 134, 193 )); 
 
         button_3 = new RoundButton("EXIT");
-        button_3.setButtonColor(new Color(133, 193, 233)); // Set color for button 3
-        button_3.setHoverColor(new Color(46, 134, 193 )); // Set hover color for button 3
+        button_3.setButtonColor(new Color(133, 193, 233)); 
+        button_3.setHoverColor(new Color(46, 134, 193 )); 
 
-        // Set button sizes
-        button_1.setPreferredSize(new Dimension(100, 40));
+        // กำหนดขนาด
+        button_1.setPreferredSize(new Dimension(100, 40)); 
         button_2.setPreferredSize(new Dimension(100, 40));
         button_3.setPreferredSize(new Dimension(100, 40));
 
@@ -38,19 +35,19 @@ public class mybutton extends JPanel {
         label.setBounds(800, 300, 500, 100);
 
 
-       // Set layout manager
+       // ตั้งค่า layout manager เป็น null เพื่อให้สามารถกำหนดตำแหน่งของ component ได้
        setLayout(null);
        button_1.setBounds(30, 150, 200, 100);
        button_2.setBounds(30, 300, 200, 100);
        button_3.setBounds(30, 450, 200, 100); 
 
-        // Add buttons to panel
+        // เพิ่มปุ่มและ label ไปยัง panel
         add(button_1);
         add(button_2);
         add(button_3);
         add(label);
     }
-
+    // ฟังก์ชันสำหรับการเข้าถึงปุ่ม
     public RoundButton getButton1() {
         return button_1;
     }
