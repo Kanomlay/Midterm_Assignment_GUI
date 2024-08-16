@@ -102,9 +102,9 @@ public class ControlPanel extends JPanel {
             }
         });
         // สร้าง text field สำหรับกรอกข้อมูล
-        textField_1 = new JTextField("0");
+        textField_1 = new JTextField("2000");
         textField_1.setBorder(border);
-        textField_2 = new JTextField("100");
+        textField_2 = new JTextField("5000");
         textField_2.setBorder(border);
         // เพิ่มปุ่มและ text field ลงใน panel
         add(back);

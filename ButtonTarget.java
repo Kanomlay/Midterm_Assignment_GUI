@@ -67,7 +67,7 @@ public class ButtonTarget implements ActionListener {
             }
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "To much number");
+            JOptionPane.showMessageDialog(null, "An error occurred because there were too many characters or data.");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

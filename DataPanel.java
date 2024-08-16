@@ -49,9 +49,9 @@ public class DataPanel extends JPanel {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
                 for (int col = 0; col < values.length && col < 20; col++) {
                     int random_chance = random.nextInt(100);//สุ่มโอกาศผิดพลาด
-                    if (random_chance < 8) {
+                    if (random_chance < 15) {
                         int  OriginalValue = Integer.parseInt(values[col]);
-                        int random_error = random.nextInt(101)-50;
+                        int random_error = random.nextInt(21)-10;
                         int error_data =  OriginalValue + random_error;
                         pm25[row][col] = Math.max(error_data,0);
                     } else { 
