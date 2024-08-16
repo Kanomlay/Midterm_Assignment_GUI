@@ -13,30 +13,26 @@ public class CalculateProcess extends JPanel {
     private int targetCol = -1;
     private DataPanel dataPanel;
     private ControlPanel controlPanel;
-    private String mode = "ShowData";// กำหนดโหมดเริ่มต้นเป็น "ShowData"
-    private boolean isArtificialRainMode = false;// กำหนดสถานะโหมดฝนเทียม
+    private String mode = "ShowData";
+    private boolean isArtificialRainMode = false;
     private ShowInformation showInformation;
     public CalculateProcess() {
         setLayout(new BorderLayout());
         
-        // Initialize arrays
         pm25Levels = new int[HEIGHT][WIDTH];
         buttons = new JButton[HEIGHT][WIDTH];
         populations = new int[HEIGHT][WIDTH];
 
-        // Initialize DataPanel, ControlPanel, and ShowInformation
         controlPanel = new ControlPanel(this, pm25Levels, buttons, populations);
         showInformation = new ShowInformation();
         dataPanel = new DataPanel(pm25Levels, buttons, populations, this, controlPanel, showInformation);
 
-        // Add panels to layout
         add(dataPanel, BorderLayout.WEST);
         add(controlPanel, BorderLayout.SOUTH);
 
         updateButtons();
     }
 
-    // Update button states
     public void updateButtons() {
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
@@ -50,7 +46,6 @@ public class CalculateProcess extends JPanel {
         }
     }
 
-    // Set target button based on user selection
     public void setTarget(int row, int col) {
         this.targetRow = row;
         this.targetCol = col;
@@ -61,7 +56,7 @@ public class CalculateProcess extends JPanel {
             }
         }  
     }
-    // ตรวจสอบสถานะโหมดฝนเทียม
+
     public boolean isArtificialRainMode() {
         return isArtificialRainMode;
     }
@@ -69,21 +64,19 @@ public class CalculateProcess extends JPanel {
     public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
         if (!isArtificialRainMode) {
-            this.mode = "ShowData";// เปลี่ยนโหมดเป็น "ShowData" เมื่อปิดโหมดฝนเทียม
+            this.mode = "ShowData";
         } else {
-            this.mode = "ArtificialRain";// เปลี่ยนโหมดเป็น "ArtificialRain" เมื่อเปิดโหมดฝนเทียม
+            this.mode = "ArtificialRain";
             targetRow = -1;
             targetCol = -1;
             updateButtons();
         }
     }
 
-    // ใช้ฝนเทียม
     public void useFonTaerm() {
         this.mode = "ArtificialRain";
     }
 
-    // ใช้ฝนธรรมชาติ
     public void useFonJing() {
         this.isArtificialRainMode = false;
         this.mode = "NaturalRain";
@@ -91,25 +84,24 @@ public class CalculateProcess extends JPanel {
         updateButtons();
     }
 
-    // โหลดข้อมูลจากไฟล์
+ 
     public void loadFile() {
         dataPanel.AddFile();
-        add(showInformation.panel_1, BorderLayout.EAST);// เพิ่ม panel_1 ของ showInformation ทางด้านขวา (EAST)
-        showInformation.panel_1.setVisible(true);// แสดง panel_1
+        add(showInformation.panel_1, BorderLayout.EAST);
+        showInformation.panel_1.setVisible(true);
     }
 
-    // รีเซ็ตข้อมูล
     public void resetdata() {
         showInformation.panel_1.setVisible(false);
-        showInformation.label_1.setIcon(null); // ลบรูปภาพจาก label_1
-        showInformation.infoLabel.setText(""); // ลบข้อความใน infoLabel
-        showInformation.revalidate(); // รีเฟรช layout เพื่ออัพเดตการเปลี่ยนแปลง
-        showInformation.repaint(); // วาดใหม่
+        showInformation.label_1.setIcon(null); 
+        showInformation.infoLabel.setText("");
+        showInformation.revalidate(); 
+        showInformation.repaint();
         for (int row = 0; row < HEIGHT; row++) {
             for (int col = 0; col < WIDTH; col++) {
                 if (buttons[row][col] != null) {
                     buttons[row][col].setVisible(false);
-                    remove(buttons[row][col]);// ลบปุ่มออกจาก layout
+                    remove(buttons[row][col]);
                     buttons[row][col] = null;
                 }
             }
@@ -118,7 +110,6 @@ public class CalculateProcess extends JPanel {
     public String getMode(){
         return mode;      
     }  
-    // ตั้งค่า ActionListener สำหรับปุ่มกลับใน Mainmenu
     public void setBackActionListener(CardLayout cardLayout, JPanel maiPanel) {
         controlPanel.getBack().addActionListener(new ActionListener() {
             @Override

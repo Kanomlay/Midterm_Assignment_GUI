@@ -10,6 +10,7 @@ public class mybutton extends JPanel {
     public mybutton() {
         // Set the background color of the panel
         setBackground(new Color(174, 214, 241)); // ตั้งค่าสี background สำหรับ panel
+        
 
         // Create buttons with different colors
         button_1 = new RoundButton("START");

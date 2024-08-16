@@ -2,7 +2,6 @@ import java.awt.Color;
 
 public class Utility {
 
-    // คำนวณเปอร์เซ็นต์ความเสี่ยงตามค่า pm25
     private static double calculatePercentageSick(int pm25) {
         double percentageSick;
         if (pm25 >= 0 && pm25 <= 50) {
@@ -19,11 +18,10 @@ public class Utility {
         return percentageSick;
     }
 
-    // สุ่มค่าภายในช่วง
+
     public static int getRandomValueInRange(int min, int max) {
         int value = 0;
         if (min > max) {
-            //throw new IllegalArgumentException("Min should be less than or equal to Max.");
             value = max + (int) (Math.random() * ((min - max) + 1));
         }
         else if(max > min){
@@ -36,28 +34,26 @@ public class Utility {
         return value;
     }
 
-    // คำนวณประชากรที่ป่วยจากค่า randomPopulation และ pm25
     public static final int calculatePopulationSick(int randomPopulation, int pm25) {
         double percentageSick = calculatePercentageSick(pm25);
         double populationSick = randomPopulation * percentageSick;
         return (int) populationSick;
     }
 
-    // คำนวณจำนวนประชากรที่ดี
     public static int calculateGoodPopulation(int randomPopulation, int populationSick) {
         int goodPopulation = randomPopulation - populationSick;
         return goodPopulation;
     }
 
-    // กำหนดสีตามความเสี่ยงทางสุขภาพที่คำนวณจาก pm25
+
     public static Color getColorForHealthRisk(int pm25) {
         double percentageSick = calculatePercentageSick(pm25);
 
-        if (percentageSick > 0.30) {
+        if (percentageSick >= 0.30) {
             return Color.RED; // 30% or more
-        } else if (percentageSick > 0.20) {
+        } else if (percentageSick >= 0.20) {
             return Color.ORANGE; // 20-29%
-        } else if (percentageSick > 0.10) {
+        } else if (percentageSick >= 0.10) {
             return Color.YELLOW; // 10-19%
         } else {
             return Color.GREEN; // 0-9%
