@@ -27,7 +27,7 @@ public class DataPanel extends JPanel {
 
         random = new Random();
 
-        setLayout(new GridLayout(10, 20, 0, 0)); // ตั้งค่า GridLayout ขนาด 10x20 
+        setLayout(new GridLayout(10, 20, 0, 0)); 
     }
 
     // ฟังก์ชันสำหรับการเพิ่มไฟล์ข้อมูล
@@ -36,7 +36,7 @@ public class DataPanel extends JPanel {
         int returnValue = fileChooser.showOpenDialog(frame);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             Path filePath = fileChooser.getSelectedFile().toPath();
-            loadDataFromFile(filePath);// โหลดข้อมูลจากไฟล์ที่เลือก
+            loadDataFromFile(filePath);
         }
     }
 
@@ -48,12 +48,10 @@ public class DataPanel extends JPanel {
             while ((line = reader.readLine()) != null && row < 10) {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
                 for (int col = 0; col < values.length && col < 20; col++) {
-                    int random_chance = random.nextInt(100);//สุ่มโอกาศผิดพลาด
-                    if (random_chance < 8) {
+                    int random_chance = random.nextInt(100);
                     if (random_chance < 3) {
                         int  OriginalValue = Integer.parseInt(values[col]);
-                        int random_error = random.nextInt(101)-50;
-                        int random_error = random.nextInt(21)-10;
+                        int random_error = random.nextInt(100)-50;
                         int error_data =  OriginalValue + random_error;
                         pm25[row][col] = Math.max(error_data,0);
                     } else { 
@@ -61,8 +59,8 @@ public class DataPanel extends JPanel {
                     }
                    
                     JButton button = new JButton();
-                    button.setPreferredSize(new Dimension(50, 30));// ตั้งค่าขนาดของปุ่ม
-                    button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));// ตั้งค่าสีพื้นหลังของปุ่มตามค่า pm2.5
+                    button.setPreferredSize(new Dimension(50, 30));
+                    button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));
                     buttons[row][col] = button;
                     button.addActionListener(new ButtonTarget(row, col, frame, buttons, pm25, populations, controlPanel, showInformation));
                     add(button);// เพิ่มปุ่มลงใน panel
@@ -70,11 +68,11 @@ public class DataPanel extends JPanel {
                 row++;
             }
         } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());// แสดงข้อความเมื่อเกิดข้อผิดพลาด
+            System.out.println("IOException: " + e.getMessage());
         }catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Wrong Input");
+            JOptionPane.showMessageDialog(null, "Wrong File");
         }
-        revalidate(); // รีเฟรช panel
-        repaint();    // วาด panel ใหม่
+        revalidate(); 
+        repaint();    
     }
 }
