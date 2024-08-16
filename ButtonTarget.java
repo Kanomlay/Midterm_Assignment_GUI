@@ -31,7 +31,7 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if (cal.getMode() == "ShowData") {
+        cal.setTarget(row, col);
         int pm25Value = pm25[row][col];
 
         try {
@@ -66,9 +66,7 @@ public class ButtonTarget implements ActionListener {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-       }else{
-            cal.setTarget(row, col);
-       }
+
        
         }
     
