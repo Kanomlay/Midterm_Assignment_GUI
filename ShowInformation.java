@@ -20,13 +20,18 @@ public class ShowInformation extends JPanel {
         Border border = BorderFactory.createLineBorder(new Color(243, 138, 138), 10);
         Border border_button = BorderFactory.createLineBorder(Color.BLACK, 3);
 
+        image_veryBad = new ImageIcon(new ImageIcon("very-bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_bad = new ImageIcon(new ImageIcon("bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_normal = new ImageIcon(new ImageIcon("normal-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_good = new ImageIcon(new ImageIcon("good-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+
         label_1 = new JLabel();
         label_1.setPreferredSize(new Dimension(400, 285));
         
         infoLabel = new JLabel();
         infoLabel.setPreferredSize(new Dimension(405, 50));
-        infoLabel.setHorizontalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวนอน
-        infoLabel.setVerticalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวตั้ง
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        infoLabel.setVerticalAlignment(SwingConstants.CENTER); 
 
         panel_1 = new JPanel(new BorderLayout());
         panel_1.setBorder(border_button);
@@ -50,20 +55,15 @@ public class ShowInformation extends JPanel {
     }
 
     public void updateImage(double percentageSick) {
-        if (percentageSick > 30.0) {
-            image_veryBad = new ImageIcon(new ImageIcon("very-bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        if (percentageSick >= 30.0) {
             label_1.setIcon(image_veryBad);
-        } else if (percentageSick > 20.0) {
-            image_bad = new ImageIcon(new ImageIcon("bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        } else if (percentageSick >= 20.0) {
             label_1.setIcon(image_bad);
-        } else if (percentageSick > 10.0) {
-            image_normal = new ImageIcon(new ImageIcon("normal-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        } else if (percentageSick >= 10.0) {
             label_1.setIcon(image_normal);
         } else {
-            image_good = new ImageIcon(new ImageIcon("good-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
             label_1.setIcon(image_good);
         }
-
 
     }
 
@@ -77,6 +77,6 @@ public class ShowInformation extends JPanel {
                     + "<b>ร้อยละของประชากรที่ป่วย : </b> " + String.format("%.2f", percentageSick) + "%<br>"
                     + "</h1></html>";
 
-        infoLabel.setText(text);// แสดงข้อความใน infoLabel
+        infoLabel.setText(text);
     }
 }

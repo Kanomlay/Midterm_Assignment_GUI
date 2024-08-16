@@ -2,33 +2,32 @@ import java.awt.*;
 import javax.swing.*;
 
 public class RoundButton extends JButton {
-    private Color buttonColor = new Color(248, 196, 113); // Default button color
-    private Color hoverColor = Color.WHITE; // Color when hovered over
+    private Color buttonColor = new Color(248, 196, 113);
+    private Color hoverColor = Color.WHITE; 
 
     public RoundButton(String label) {
         super(label);
-        setContentAreaFilled(false); // ไม่เติมสีพื้นของปุ่ม
-        setFocusPainted(false); // ลบการเน้นเมื่อปุ่มถูกเลือก
+        setContentAreaFilled(false);
+        setFocusPainted(false); 
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         if (getModel().isArmed()) {
-            g.setColor(hoverColor); // เปลี่ยนสีเมื่อปุ่มถูกกด
+            g.setColor(hoverColor); 
         } else {
-            g.setColor(buttonColor); // ใช้สีพื้นของปุ่ม
+            g.setColor(buttonColor); 
         }
-        g.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // วาดปุ่มเป็นรูปวงรี
+        g.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); 
         super.paintComponent(g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        g.setColor(Color.BLACK); // สีของขอบปุ่ม
-        g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30); // วาดขอบปุ่มเป็นรูปวงรี
+        g.setColor(Color.BLACK); 
+        g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30); 
     }
 
-    // Setters for button colors
     public void setButtonColor(Color color) {
         this.buttonColor = color;
         repaint();

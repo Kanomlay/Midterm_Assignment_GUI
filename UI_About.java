@@ -25,12 +25,8 @@ public class UI_About extends JLabel{
         Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
         setBackground(new Color(174, 214, 241));
 
-        
-        // Load and resize the image
         Icon_1 = new ImageIcon(new ImageIcon("S__3891207.jpg").getImage().getScaledInstance(350, 285, Image.SCALE_SMOOTH));
-
         Icon_2 = new ImageIcon(new ImageIcon("13728.jpg").getImage().getScaledInstance(350, 285, Image.SCALE_SMOOTH));
-
         Icon_3 = new ImageIcon(new ImageIcon("13729.jpg").getImage().getScaledInstance(350, 285, Image.SCALE_SMOOTH));
 
         panel_Top = new JPanel();
@@ -51,18 +47,18 @@ public class UI_About extends JLabel{
         panel_Bottom.setBorder(border);
         panel_Bottom.setBackground(getBackground());
 
-        // Set properties for the label
+
         label_1.setBounds(50, 150, 400, 500);
         label_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
         label_1.setIcon(Icon_1);
-        label_1.setHorizontalTextPosition(JLabel.CENTER);// จัดตำแหน่งข้อความกึ่งกลางแนวนอน
-        label_1.setVerticalTextPosition(JLabel.BOTTOM);// จัดตำแหน่งข้อความด้านล่าง
+        label_1.setHorizontalTextPosition(JLabel.CENTER);
+        label_1.setVerticalTextPosition(JLabel.BOTTOM);
         label_1.setBackground(getBackground());
         label_1.setIconTextGap(NEXT);
         label_1.setOpaque(true);// ทำให้พื้นหลังโปร่งใส
         label_1.setBorder(border);
-        label_1.setVerticalAlignment(JLabel.CENTER);// จัดตำแหน่งแนวตั้งกึ่งกลาง
-        label_1.setHorizontalAlignment(JLabel.CENTER);// จัดตำแหน่งแนวนอนกึ่งกลาง
+        label_1.setVerticalAlignment(JLabel.CENTER);
+        label_1.setHorizontalAlignment(JLabel.CENTER);
 
         label_2.setBounds(540, 150, 400, 500);
         label_2.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -97,7 +93,7 @@ public class UI_About extends JLabel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                cardLayout.show(mainpanel, "Main menu");// เปลี่ยนไปที่เมนูหลักเมื่อกดปุ่ม
+                cardLayout.show(mainpanel, "Main menu");
             }
             
         });
