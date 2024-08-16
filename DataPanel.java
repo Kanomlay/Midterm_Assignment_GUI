@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Random;
 
 public class DataPanel extends JPanel {
     private JButton[][] buttons;
@@ -14,6 +15,7 @@ public class DataPanel extends JPanel {
     private CalculateProcess frame;
     private ControlPanel controlPanel;
     private ShowInformation showInformation;
+    private Random random;
 
     public DataPanel(int[][] pm25, JButton[][] buttons, int[][] populations, CalculateProcess frame, ControlPanel controlPanel, ShowInformation showInformation) {
         this.pm25 = pm25;
@@ -22,6 +24,8 @@ public class DataPanel extends JPanel {
         this.frame = frame;
         this.controlPanel = controlPanel;
         this.showInformation = showInformation;
+
+        random = new Random();
 
         setLayout(new GridLayout(10, 20, 0, 0)); // ตั้งค่า GridLayout ขนาด 10x20 
     }
@@ -44,7 +48,16 @@ public class DataPanel extends JPanel {
             while ((line = reader.readLine()) != null && row < 10) {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
                 for (int col = 0; col < values.length && col < 20; col++) {
-                    pm25[row][col] = Integer.parseInt(values[col]); // แปลงข้อมูลจาก String เป็น Integer
+                    int random_chance = random.nextInt(100);//สุ่มโอกาศผิดพลาด
+                    if (random_chance < 8) {
+                        int  OriginalValue = Integer.parseInt(values[col]);
+                        int random_error = random.nextInt(101)-50;
+                        int error_data =  OriginalValue + random_error;
+                        pm25[row][col] = Math.max(error_data,0);
+                    } else { 
+                        pm25[row][col] = Integer.parseInt(values[col]);
+                    }
+                   
                     JButton button = new JButton();
                     button.setPreferredSize(new Dimension(50, 30));// ตั้งค่าขนาดของปุ่ม
                     button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));// ตั้งค่าสีพื้นหลังของปุ่มตามค่า pm2.5
