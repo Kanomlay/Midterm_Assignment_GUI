@@ -48,11 +48,6 @@ public class DataPanel extends JPanel {
             while ((line = reader.readLine()) != null && row < 10) {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
                 for (int col = 0; col < values.length && col < 20; col++) {
-
-                    int random_chance = random.nextInt(100);//สุ่มโอกาศผิดพลาด
-                    if (random_chance < 15) {
-                        int  OriginalValue = Integer.parseInt(values[col]);
-                        int random_error = random.nextInt(21)-10;
                     int random_chance = random.nextInt(100);
                     if (random_chance < 3) {
                         int  OriginalValue = Integer.parseInt(values[col]);
