@@ -30,8 +30,8 @@ public class ShowInformation extends JPanel {
         
         infoLabel = new JLabel();
         infoLabel.setPreferredSize(new Dimension(405, 50));
-        infoLabel.setHorizontalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวนอน
-        infoLabel.setVerticalAlignment(SwingConstants.CENTER); // ตั้งค่าการจัดตำแหน่งข้อมูลให้อยู่กึ่งกลางแนวตั้ง
+        infoLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        infoLabel.setVerticalAlignment(SwingConstants.CENTER); 
 
         panel_1 = new JPanel(new BorderLayout());
         panel_1.setBorder(border_button);
@@ -55,16 +55,15 @@ public class ShowInformation extends JPanel {
     }
 
     public void updateImage(double percentageSick) {
-        if (percentageSick > 30.0) {
+        if (percentageSick >= 30.0) {
             label_1.setIcon(image_veryBad);
-        } else if (percentageSick > 20.0) {
+        } else if (percentageSick >= 20.0) {
             label_1.setIcon(image_bad);
-        } else if (percentageSick > 10.0) {
+        } else if (percentageSick >= 10.0) {
             label_1.setIcon(image_normal);
         } else {
             label_1.setIcon(image_good);
         }
-
 
     }
 
@@ -78,6 +77,6 @@ public class ShowInformation extends JPanel {
                     + "<b>ร้อยละของประชากรที่ป่วย : </b> " + String.format("%.2f", percentageSick) + "%<br>"
                     + "</h1></html>";
 
-        infoLabel.setText(text);// แสดงข้อความใน infoLabel
+        infoLabel.setText(text);
     }
 }

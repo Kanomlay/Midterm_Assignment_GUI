@@ -14,11 +14,11 @@ public class GUI extends JFrame{
         CalculateProcess calculateProcess = new CalculateProcess();
         calculateProcess.setBackActionListener(cardLayout, mainpanel);
 
-        mainpanel.add(button,"Main menu");// เพิ่ม button เข้าไปใน mainpanel โดยใช้ชื่อ "Main menu"
-        mainpanel.add(calculateProcess,"calculateProcess");// เพิ่ม calculateProcess เข้าไปใน mainpanel โดยใช้ชื่อ "calculateProcess"
-        mainpanel.add(about,"About");// เพิ่ม about เข้าไปใน mainpanel โดยใช้ชื่อ "About"
+        mainpanel.add(button,"Main menu");
+        mainpanel.add(calculateProcess,"calculateProcess");
+        mainpanel.add(about,"About");
 
-        cardLayout.show(mainpanel, "Main menu");// แสดง "Main menu" เมื่อเริ่มต้น
+        cardLayout.show(mainpanel, "Main menu");
 
         add(mainpanel);
         setTitle("PM 2.5");
@@ -33,7 +33,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                cardLayout.show(mainpanel, "calculateProcess");// เมื่อกดปุ่ม แสดงหน้า calculateProcess
+                cardLayout.show(mainpanel, "calculateProcess");
             }
             
         });
@@ -42,7 +42,7 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                cardLayout.show(mainpanel, "About");// เมื่อกดปุ่ม แสดงหน้า About
+                cardLayout.show(mainpanel, "About");
             }
             
         });

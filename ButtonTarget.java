@@ -16,7 +16,7 @@ public class ButtonTarget implements ActionListener {
     private Integer populationSick; 
     private Integer goodPopulation;
     private int lastPm25Value = -1; // เก็บค่า PM2.5 ครั้งก่อนหน้า
-
+    private double percentageSick;
 
     public ButtonTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel, ShowInformation showInformation) {
         this.row = row;
@@ -31,9 +31,7 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        cal.setTarget(row, col);
-       
+       if (cal.getMode() == "ShowData") {
         int pm25Value = pm25[row][col];
 
         try {
@@ -43,38 +41,37 @@ public class ButtonTarget implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Number is negative");
                 return;
             }
-            /*if (min > max) {
-                throw new IllegalArgumentException("Min should be less than or equal to Max.");
-            }*/
 
             if (randomPopulation == null) {
-                // ถ้ายังไม่ได้คำนวณมาก่อน ให้สร้าง randomPopulation
                 randomPopulation = Utility.getRandomValueInRange(min, max);
             }
 
             if (lastPm25Value == -1 || pm25Value < lastPm25Value) {
-                // ถ้ายังไม่เคยคำนวณมาก่อนหรือค่า PM2.5 ปัจจุบันลดลง ให้คำนวณใหม่
                 populationSick = Utility.calculatePopulationSick(randomPopulation, pm25Value);
                 goodPopulation = Utility.calculateGoodPopulation(randomPopulation, populationSick);
-                double percentageSick = (populationSick / (double) randomPopulation) * 100;
+                percentageSick = (populationSick / (double) randomPopulation) * 100;
 
                 showInformation.updateImage(percentageSick);
                 showInformation.getText(pm25Value, randomPopulation, populationSick, percentageSick, goodPopulation);
-
-                lastPm25Value = pm25Value; // เก็บค่าล่าสุด
+                
+                lastPm25Value = pm25Value; 
             } else {
-                // ถ้าไม่มีการเปลี่ยนแปลง หรือค่า PM2.5 ไม่ได้ลดลง ก็เก็บค่าที่มีอยู่เดิม
                 showInformation.getText(pm25Value, randomPopulation, populationSick, (populationSick / (double) randomPopulation) * 100, goodPopulation);
             }
+
+            showInformation.updateImage(percentageSick);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Wrong Input or To much number");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+       }else{
+            cal.setTarget(row, col);
+       }
+       
         }
     
-
     public void resetPopulationCalculations() {
         randomPopulation = null;
         populationSick = null;

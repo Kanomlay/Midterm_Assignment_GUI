@@ -70,7 +70,7 @@ public class ControlPanel extends JPanel {
         add_files.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cal.loadFile();// โหลดข้อมูลจากไฟล์
+                cal.loadFile();
             }
         });
 
@@ -83,7 +83,6 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-               
                     // รีเซ็ตค่าที่คำนวณไว้ใน ButtonTarget ทุกปุ่ม
                     for (int row = 0; row < buttons.length; row++) {
                         for (int col = 0; col < buttons[row].length; col++) {
@@ -101,12 +100,11 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-        // สร้าง text field สำหรับกรอกข้อมูล
-        textField_1 = new JTextField("0");
+        textField_1 = new JTextField("2000");
         textField_1.setBorder(border);
-        textField_2 = new JTextField("100");
+        textField_2 = new JTextField("5000");
         textField_2.setBorder(border);
-        // เพิ่มปุ่มและ text field ลงใน panel
+
         add(back);
         add(button_rain);
         add(random_rain);
@@ -115,18 +113,8 @@ public class ControlPanel extends JPanel {
         add(textField_2);
         add(add_population);
     }
-    // ฟังก์ชันสำหรับการคำนวณค่าเฉลี่ยของ PM2.5
-    private int getAveragePM25() {
-        int total = 0;
-        int count = 0;
-        for (int[] row : pm25) {
-            for (int value : row) {
-                total += value;
-                count++;
-            }
-        }
-        return count > 0 ? total / count : 0;
-    }
+
+    
 
     public JTextField getTextField1() {
         return textField_1;
