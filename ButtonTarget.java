@@ -17,6 +17,7 @@ public class ButtonTarget implements ActionListener {
     private Integer goodPopulation;
     private int lastPm25Value = -1; // เก็บค่า PM2.5 ครั้งก่อนหน้า
 
+
     public ButtonTarget(int row, int col, CalculateProcess cal, JButton[][] buttons, int[][] pm25, int[][] populations, ControlPanel controlPanel, ShowInformation showInformation) {
         this.row = row;
         this.col = col;
@@ -30,10 +31,10 @@ public class ButtonTarget implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (cal.getMode() == "ArtificialRain") {
-            cal.setTarget(row, col);
-        } else {
-            int pm25Value = pm25[row][col];
+       
+        cal.setTarget(row, col);
+       
+        int pm25Value = pm25[row][col];
 
         try {
             int min = Integer.parseInt(controlPanel.getTextField1().getText());
@@ -67,12 +68,12 @@ public class ButtonTarget implements ActionListener {
             }
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "To much number");
+            JOptionPane.showMessageDialog(null, "Wrong Input or To much number");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         }
-    }
+    
 
     public void resetPopulationCalculations() {
         randomPopulation = null;

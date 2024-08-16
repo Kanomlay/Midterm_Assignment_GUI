@@ -27,6 +27,7 @@ public class GUI extends JFrame{
         setSize(1500,800);
         setLocationRelativeTo(null);
         setVisible(true);
+    
         button.getButton1().addActionListener(new ActionListener() {
 
             @Override

@@ -50,8 +50,10 @@ public class DataPanel extends JPanel {
                 for (int col = 0; col < values.length && col < 20; col++) {
                     int random_chance = random.nextInt(100);//สุ่มโอกาศผิดพลาด
                     if (random_chance < 8) {
+                    if (random_chance < 3) {
                         int  OriginalValue = Integer.parseInt(values[col]);
                         int random_error = random.nextInt(101)-50;
+                        int random_error = random.nextInt(21)-10;
                         int error_data =  OriginalValue + random_error;
                         pm25[row][col] = Math.max(error_data,0);
                     } else { 
@@ -69,6 +71,8 @@ public class DataPanel extends JPanel {
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());// แสดงข้อความเมื่อเกิดข้อผิดพลาด
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Wrong Input");
         }
         revalidate(); // รีเฟรช panel
         repaint();    // วาด panel ใหม่

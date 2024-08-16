@@ -20,6 +20,11 @@ public class ShowInformation extends JPanel {
         Border border = BorderFactory.createLineBorder(new Color(243, 138, 138), 10);
         Border border_button = BorderFactory.createLineBorder(Color.BLACK, 3);
 
+        image_veryBad = new ImageIcon(new ImageIcon("very-bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_bad = new ImageIcon(new ImageIcon("bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_normal = new ImageIcon(new ImageIcon("normal-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+        image_good = new ImageIcon(new ImageIcon("good-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
+
         label_1 = new JLabel();
         label_1.setPreferredSize(new Dimension(400, 285));
         
@@ -51,16 +56,12 @@ public class ShowInformation extends JPanel {
 
     public void updateImage(double percentageSick) {
         if (percentageSick > 30.0) {
-            image_veryBad = new ImageIcon(new ImageIcon("very-bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
             label_1.setIcon(image_veryBad);
         } else if (percentageSick > 20.0) {
-            image_bad = new ImageIcon(new ImageIcon("bad-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
             label_1.setIcon(image_bad);
         } else if (percentageSick > 10.0) {
-            image_normal = new ImageIcon(new ImageIcon("normal-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
             label_1.setIcon(image_normal);
         } else {
-            image_good = new ImageIcon(new ImageIcon("good-weather.jpg").getImage().getScaledInstance(475, 285, Image.SCALE_SMOOTH));
             label_1.setIcon(image_good);
         }
 
