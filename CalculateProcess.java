@@ -63,7 +63,7 @@ public class CalculateProcess extends JPanel {
 
     public void toggleArtificialRainMode() {
         this.isArtificialRainMode = !this.isArtificialRainMode;
-        if (!isArtificialRainMode) {
+        if (isArtificialRainMode == false) {
             this.mode = "ShowData";
         } else {
             this.mode = "ArtificialRain";

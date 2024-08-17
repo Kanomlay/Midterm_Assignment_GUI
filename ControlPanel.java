@@ -36,7 +36,7 @@ public class ControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 cal.toggleArtificialRainMode();
-                if (cal.isArtificialRainMode()) {
+                if (cal.isArtificialRainMode() == true) {
                     button_rain.setText("Exit Mode Artificial");
                     button_rain.setBackground(new Color(169, 50, 38));
                     button_rain.setForeground(Color.WHITE);
