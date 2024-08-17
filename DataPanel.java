@@ -42,11 +42,12 @@ public class DataPanel extends JPanel {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
             String line;
             int row = 0;
+            int col = 0;
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
-                for (int col = 0; col < values.length; col++) {
+                
+                for (col = 0; col < values.length; col++) {
                     pm25[row][col] = Integer.parseInt(values[col]);
-
                     if (pm25[row][col] < 0) {
                         pm25[row][col] = 0;
                     }
@@ -60,14 +61,15 @@ public class DataPanel extends JPanel {
                 }
                 row++;
             }
-            if (row != 10) {
+            if (row != 10 || col != 20) {
                 removeAll();
                 JOptionPane.showMessageDialog(null, "Error row or colume is lower than or higher than");
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Wrong File: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Wrong File: or Colume Error" );
+            removeAll();
         }
         revalidate(); 
         repaint();    
