@@ -44,19 +44,13 @@ public class DataPanel extends JPanel {
             int row = 0;
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split("\\s+");// แยกข้อมูลด้วยช่องว่าง
-                if (row > 11) {
-                    JOptionPane.showMessageDialog(null, "");
-                    break;
-                }
-                if (values.length > 20) {
-                    JOptionPane.showMessageDialog(null, "");
-                    break;
-                }
-    
                 for (int col = 0; col < values.length; col++) {
                     pm25[row][col] = Integer.parseInt(values[col]);
+
+                    if (pm25[row][col] < 0) {
+                        pm25[row][col] = 0;
+                    }
                     
-    
                     JButton button = new JButton();
                     button.setPreferredSize(new Dimension(50, 30));
                     button.setBackground(Utility.getColorForHealthRisk(pm25[row][col]));
@@ -65,6 +59,10 @@ public class DataPanel extends JPanel {
                     add(button);// เพิ่มปุ่มลงใน panel
                 }
                 row++;
+            }
+            if (row != 10) {
+                removeAll();
+                JOptionPane.showMessageDialog(null, "Error row or colume is lower than or higher than");
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
